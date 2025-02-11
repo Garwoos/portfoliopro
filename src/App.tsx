@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ProjectCarousel } from './components/ProjectCarousel';
 import { ProjectModal } from './components/ProjectModal';
 import { UserProfile } from './components/UserProfile';
@@ -24,6 +24,10 @@ function App() {
     resume: "/resume.pdf",
     bio: "Étudiant en informatique, spécialisé en développement web/app. Passionné par la technologie et l'innovation, j'aime créer des applications web qui ont un impact positif sur les gens. Je suis actuellement à la recherche d'opportunités de stage en développement web/app.",
   };
+
+  useEffect(() => {
+    document.title = "Portfolio de Sam Maisonneuve";
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#409cff]/10">
@@ -96,7 +100,7 @@ function App() {
                   href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full bg-[#1e39e5]/10 p-3 text-[#1e39e5] hover:bg-[#1e39e5]/20"
+                  className="rounded-full bg-[#1e39e5]/10 p-3 text-[#04070D] hover:bg-[#1e39e5]/20"
                 >
                   <Github className="h-6 w-6" />
                 </a>
@@ -104,13 +108,13 @@ function App() {
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full bg-[#1e39e5]/10 p-3 text-[#1e39e5] hover:bg-[#1e39e5]/20"
+                  className="rounded-full bg-[#1e39e5]/10 p-3 text-[#04070D] hover:bg-[#1e39e5]/20"
                 >
                   <Linkedin className="h-6 w-6" />
                 </a>
                 <a
                   href="mailto:s.maisonneuvepro@gmail.com"
-                  className="rounded-full bg-[#1e39e5]/10 p-3 text-[#1e39e5] hover:bg-[#1e39e5]/20"
+                  className="rounded-full bg-[#1e39e5]/10 p-3 text-[#04070D] hover:bg-[#1e39e5]/20"
                 >
                   <Mail className="h-6 w-6" />
                 </a>
