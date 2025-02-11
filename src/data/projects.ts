@@ -17,7 +17,7 @@ export const projects = [
     défi: "Assurer la compatibilité et la performance avec Java.",
     solution: "Utilisation des meilleures pratiques Java et optimisation du code.",
     technologies: ["Java", "Spring Boot", "Docker"],
-    image: `${import.meta.env.BASE_URL}heavent.png`,
+    image: `${import.meta.env.BASE_URL}Heavent.png`,
     urlDemo: "https://example.com/demo",
     urlGithub: "https://github.com/Garwoos/Heavent"
   },
