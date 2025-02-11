@@ -30,7 +30,7 @@ export function AnimatedBackground({ density = 5 }: AnimatedBackgroundProps) {
     if (!ctx) return;
 
     const image = new Image();
-    image.src = '/minimoi.png'; // Assurez-vous que le chemin est correct
+    image.src = `${import.meta.env.BASE_URL}minimoi.png`; // Assurez-vous que le chemin est correct
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
