@@ -10,6 +10,7 @@ import { Github, Linkedin, Mail } from 'lucide-react';
 function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [showProfile, setShowProfile] = useState(false);
+  const [showHill, setShowHill] = useState(false);
 
   // Mock user data - in a real app, this would come from your auth system
   const user = {
@@ -29,9 +30,14 @@ function App() {
     document.title = "Portfolio de Sam Maisonneuve";
   }, []);
 
+  const toggleProfile = () => {
+    setShowProfile(!showProfile);
+    setShowHill(!showProfile); // Active la colline en même temps que le profil
+  };
+
   return (
     <div className="min-h-screen bg-[#409cff]/10">
-      <AnimatedBackground density={15} />
+      <AnimatedBackground showHill={showHill} density={15} />
       
       {/* Header */}
       <header className="fixed top-0 z-40 w-full bg-[#7083A3]/80 backdrop-blur-sm pointer-events-none">
@@ -45,7 +51,7 @@ function App() {
               Contact
             </a>
             <button
-              onClick={() => setShowProfile(!showProfile)}
+              onClick={toggleProfile}
               className="rounded-full bg-[#1e39e5]/10 p-2 text-[#fffdf5] hover:bg-[#1e39e5]/20"
             >
               <img src={user.avatar} alt="User Avatar" className="h-5 w-5 rounded-full" />

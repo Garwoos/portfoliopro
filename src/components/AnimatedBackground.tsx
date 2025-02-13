@@ -28,11 +28,13 @@ interface Star {
   twinkleOffset: number;
 }
 
-export function AnimatedBackground() {
+export function AnimatedBackground({ showHill }: { showHill: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>();
   const buildingsRef = useRef<Building[]>([]);
   const starsRef = useRef<Star[]>([]);
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const leavesRef = useRef<{ x: number; y: number; size: number }[]>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -40,6 +42,12 @@ export function AnimatedBackground() {
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
+
+    const image = new Image();
+    image.src = 'minimoiquidort.png';
+    image.onload = () => {
+      imageRef.current = image;
+    };
 
     const initializeStars = () => {
       const stars: Star[] = [];
@@ -74,7 +82,7 @@ export function AnimatedBackground() {
         const numFloors = Math.floor((building.height - windowSpacing * 2) / windowSpacing);
         for (let floor = 0; floor < numFloors; floor++) {
           const wy = canvas.height - building.height + windowSpacing + (floor * windowSpacing);
-          const shouldBlink = Math.random() < 0.8; // Augmenter la probabilité de clignotement
+          const shouldBlink = Math.random() < 0.3; // Augmenter la probabilité de clignotement
           if (Math.random() > 0.9) {
             windows.push({
               x: wx,
@@ -197,6 +205,58 @@ export function AnimatedBackground() {
       });
     };
 
+    const drawHill = () => {
+      if (!showHill) return; // N'affiche pas la colline si showHill est faux
+
+      ctx.fillStyle = '#0a1f0a';
+      ctx.beginPath();
+      ctx.moveTo(canvas.width * 0.55, canvas.height);
+    
+      // Création de plusieurs bosses et creux pour un effet plus naturel
+      ctx.quadraticCurveTo(canvas.width * 0.70, canvas.height * 0.75, canvas.width * 0.70, canvas.height * 0.78);
+      ctx.quadraticCurveTo(canvas.width * 0.80, canvas.height * 0.70, canvas.width * 0.82, canvas.height * 0.70);
+      ctx.quadraticCurveTo(canvas.width * 0.87, canvas.height * 0.65, canvas.width * 0.92, canvas.height * 0.65);
+      ctx.quadraticCurveTo(canvas.width * 0.96, canvas.height * 0.60, canvas.width, canvas.height * 0.60);
+    
+      ctx.lineTo(canvas.width, canvas.height);
+      ctx.closePath();
+      ctx.fill();
+    
+      // Contour léger pour donner un effet de profondeur
+      ctx.strokeStyle = '#0e2a0e';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    
+      // Draw the tree
+      drawTree();
+    };
+    
+    const drawTree = () => {
+      // Draw the trunk
+      ctx.fillStyle = '#8B4513';
+      ctx.fillRect(canvas.width * 0.96, canvas.height * 0.55, 100, 250);
+    
+      // Initialize leaves if not already done
+      if (leavesRef.current.length === 0) {
+        for (let i = 0; i < 5; i++) {
+          const leafX = canvas.width * 0.96 + Math.random() * 100;
+          const leafY = canvas.height * 0.45 + Math.random() * 100;
+          const leafSize = 150 + Math.random() * 20;
+          leavesRef.current.push({ x: leafX, y: leafY, size: leafSize });
+        }
+      }
+    
+      // Draw the leaves
+      ctx.fillStyle = '#228B22';
+      leavesRef.current.forEach(leaf => {
+        ctx.beginPath();
+        ctx.ellipse(leaf.x, leaf.y, leaf.size, leaf.size * 0.6, Math.random() * Math.PI * 2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    };
+
+    
+
     const animate = (time: number) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -249,6 +309,13 @@ export function AnimatedBackground() {
           .forEach(building => drawBuilding(building, time));
       });
 
+      drawHill();
+
+      if (showHill && imageRef.current) {
+        ctx.drawImage(imageRef.current, canvas.width * 0.88, canvas.height * 0.85 - 200, 200, 200);
+      }
+      
+
       animationFrameRef.current = requestAnimationFrame(animate);
     };
 
@@ -262,7 +329,7 @@ export function AnimatedBackground() {
       }
       window.removeEventListener('resize', resizeCanvas);
     };
-  }, []);
+  }, [showHill]);
 
   return <canvas ref={canvasRef} className="fixed inset-0 -z-10 pointer-events-none" />;
 }
