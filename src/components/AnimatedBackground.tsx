@@ -82,14 +82,14 @@ export function AnimatedBackground({ showHill }: { showHill: boolean }) {
         const numFloors = Math.floor((building.height - windowSpacing * 2) / windowSpacing);
         for (let floor = 0; floor < numFloors; floor++) {
           const wy = canvas.height - building.height + windowSpacing + (floor * windowSpacing);
-          const shouldBlink = Math.random() < 0.3; // Augmenter la probabilité de clignotement
-          if (Math.random() > 0.9) {
+          const shouldBlink = Math.random() < 0.55; // Augmenter la probabilité de clignotement
+          if (Math.random() > 0.4) {
             windows.push({
               x: wx,
               y: wy,
               size: windowSize,
               isLit: true,
-              brightness: 0.5 + Math.random() * 0.5,
+              brightness: 0.7 + Math.random() * 0.5,
               blinkPhase: Math.random() * Math.PI * 2,
               shouldBlink
             });

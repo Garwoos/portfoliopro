@@ -40,7 +40,7 @@ function App() {
       <AnimatedBackground showHill={showHill} density={15} />
       
       {/* Header */}
-      <header className="fixed top-0 z-40 w-full bg-[#7083A3]/80 backdrop-blur-sm pointer-events-none">
+      <header className={`fixed top-0 z-40 w-full bg-[#7083A3]/80 backdrop-blur-sm pointer-events-none ${selectedProject ? 'hidden' : ''}`}>
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="text-2xl font-bold text-[#fffdf5] pointer-events-auto">Portfolio</div>
           <nav className="flex items-center gap-6 pointer-events-auto">
@@ -60,73 +60,77 @@ function App() {
         </div>
       </header>
 
-      {showProfile ? (
-        <UserProfile user={user} />
-      ) : (
+      {!selectedProject && (
         <>
-          {/* Hero Section */}
-          <section className="relative pt-16 pointer-events-none">
-            <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 pointer-events-auto">
-              <h1 className="text-4xl font-bold text-[#fffdf5] sm:text-5xl lg:text-6xl">
-                Trucs
-                <br />
-                Ouai
-              </h1>
-              <p className="mt-6 max-w-xl text-lg text-[#fffdf5]">
-                on est la
-              </p>
-            </div>
-          </section>
+          {showProfile ? (
+            <UserProfile user={user} />
+          ) : (
+            <>
+              {/* Hero Section */}
+              <section className="relative pt-16 pointer-events-none">
+                <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 pointer-events-auto">
+                  <h1 className="text-4xl font-bold text-[#fffdf5] sm:text-5xl lg:text-6xl">
+                    Trucs
+                    <br />
+                    Ouai
+                  </h1>
+                  <p className="mt-6 max-w-xl text-lg text-[#fffdf5]">
+                    on est la
+                  </p>
+                </div>
+              </section>
 
-          {/* Projects Section */}
-          <section id="projects" className="py-20 pointer-events-none">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto">
-              <h2 className="text-3xl font-bold text-[#fffdf5]">Projets de cons</h2>
-              <p className="mt-2 text-[#fffdf5]">
-                Truc random
-              </p>
-              <div className="mt-8">
-                <ProjectCarousel
-                  projects={projects}
-                  onProjectClick={setSelectedProject}
-                />
-              </div>
-            </div>
-          </section>
+              {/* Projects Section */}
+              <section id="projects" className="py-20 pointer-events-none">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto">
+                  <h2 className="text-3xl font-bold text-[#fffdf5]">Projets de cons</h2>
+                  <p className="mt-2 text-[#fffdf5]">
+                    Truc random
+                  </p>
+                  <div className="mt-8">
+                    <ProjectCarousel
+                      projects={projects}
+                      onProjectClick={setSelectedProject}
+                    />
+                  </div>
+                </div>
+              </section>
 
-          {/* Contact Section */}
-          <section id="contact" className="py-20 pointer-events-none">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto">
-              <h2 className="text-3xl font-bold text-[#fffdf5]">Fornite </h2>
-              <p className="mt-2 text-[#fffdf5]">
-                Battle pass
-              </p>
-              <div className="mt-8 flex gap-6">
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full bg-[#1e39e5]/10 p-3 text-[#04070D] hover:bg-[#1e39e5]/20"
-                >
-                  <Github className="h-6 w-6" />
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full bg-[#1e39e5]/10 p-3 text-[#04070D] hover:bg-[#1e39e5]/20"
-                >
-                  <Linkedin className="h-6 w-6" />
-                </a>
-                <a
-                  href="mailto:s.maisonneuvepro@gmail.com"
-                  className="rounded-full bg-[#1e39e5]/10 p-3 text-[#04070D] hover:bg-[#1e39e5]/20"
-                >
-                  <Mail className="h-6 w-6" />
-                </a>
-              </div>
-            </div>
-          </section>
+              {/* Contact Section */}
+              <section id="contact" className="py-20 pointer-events-none">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto">
+                  <h2 className="text-3xl font-bold text-[#fffdf5]">Fornite </h2>
+                  <p className="mt-2 text-[#fffdf5]">
+                    Battle pass
+                  </p>
+                  <div className="mt-8 flex gap-6">
+                    <a
+                      href="https://github.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-full bg-[#1e39e5]/10 p-3 text-[#04070D] hover:bg-[#1e39e5]/20"
+                    >
+                      <Github className="h-6 w-6" />
+                    </a>
+                    <a
+                      href="https://linkedin.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-full bg-[#1e39e5]/10 p-3 text-[#04070D] hover:bg-[#1e39e5]/20"
+                    >
+                      <Linkedin className="h-6 w-6" />
+                    </a>
+                    <a
+                      href="mailto:s.maisonneuvepro@gmail.com"
+                      className="rounded-full bg-[#1e39e5]/10 p-3 text-[#04070D] hover:bg-[#1e39e5]/20"
+                    >
+                      <Mail className="h-6 w-6" />
+                    </a>
+                  </div>
+                </div>
+              </section>
+            </>
+          )}
         </>
       )}
 
