@@ -23,6 +23,12 @@ const ProjectModalComponent = ({ project, isOpen, onClose }: ProjectModalProps) 
           className="fixed inset-0 z-50 bg-[#04070D]/50 backdrop-blur-sm"
           onClick={onClose}
         >
+          <button
+            onClick={onClose}
+            className="fixed right-6 top-6 rounded-full p-2 text-[#1e39e5] hover:bg-[#1e39e5]/20 z-50"
+          >
+            <X className="h-6 w-6" />
+          </button>
           <motion.div
             initial={{ y: "100%", opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -31,13 +37,6 @@ const ProjectModalComponent = ({ project, isOpen, onClose }: ProjectModalProps) 
             className="fixed inset-x-0 bottom-0 top-16 rounded-t-3xl bg-[#0a0f1a]/80 p-6 shadow-xl backdrop-blur-md overflow-y-auto border border-[#1e39e5] border-opacity-50"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={onClose}
-              className="absolute right-6 top-6 rounded-full p-2 text-[#1e39e5] hover:bg-[#1e39e5]/20"
-            >
-              <X className="h-6 w-6" />
-            </button>
-
             <div className="mx-auto max-w-4xl">
               <div className="aspect-video w-full overflow-hidden rounded-lg border border-[#1e39e5] border-opacity-50">
                 <img
@@ -58,19 +57,28 @@ const ProjectModalComponent = ({ project, isOpen, onClose }: ProjectModalProps) 
                 <div className="mt-4">
                   <h3 className="text-xl font-semibold text-[#1e39e5]">Fonctionnalités :</h3>
                   <ul className="list-disc list-inside text-white">
+                    <h4 className="text-lg font-semibold text-[#1e39e5]">Gestion des événements :</h4>                    
                     {project.fonctionnalités.gestion_evenements.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
+                    <h4 className="text-lg font-semibold text-[#1e39e5]">Notifications :</h4>
                     {project.fonctionnalités.notifications.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
+                    <h4 className="text-lg font-semibold text-[#1e39e5]">Historique :</h4>
                     {project.fonctionnalités.historique.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
+                    <h4 className="text-lg font-semibold text-[#1e39e5]">Gestion des participants :</h4>
                     {project.fonctionnalités.gestion_participants.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
+                    <h4 className="text-lg font-semibold text-[#1e39e5]">Accessibilité :</h4>
                     {project.fonctionnalités.accessibilite.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                    <h4 className="text-lg font-semibold text-[#1e39e5]">Sécurité :</h4>
+                    {project.fonctionnalités.Securite.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
                   </ul>
@@ -90,18 +98,9 @@ const ProjectModalComponent = ({ project, isOpen, onClose }: ProjectModalProps) 
                 <p className="mt-4 text-white"><strong>Technologies:</strong> {project.technologies.join(', ')}</p>
 
                 <div className="mt-6 flex gap-4">
-                  <a href={project.urlDemo} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#1e39e5] px-4 py-2 text-white hover:bg-[#1e39e5]/80">
-                    Voir Demo
-                  </a>
                   <a href={project.urlGithub} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#1e39e5] px-4 py-2 text-white hover:bg-[#1e39e5]/80">
                     Voir Code
                   </a>
-                  <button
-                    onClick={onClose}
-                    className="rounded-lg bg-[#1e39e5] px-4 py-2 text-white hover:bg-[#1e39e5]/80"
-                  >
-                    Fermer
-                  </button>
                 </div>
               </div>
             </div>

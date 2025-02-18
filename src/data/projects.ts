@@ -25,27 +25,25 @@ export const projects = [
         notifications: [
             "Rappel automatique avant l’événement.",
             "Notification aux participants en cas de modification (changement d’horaire, de lieu…).",
-            "Alertes personnalisées selon les préférences de l’utilisateur."
         ],
         historique: [
             "Journal des modifications : qui a changé quoi et quand.",
-            "Suivi des confirmations et refus des invités.",
             "Archivage des anciens événements pour référence future."
         ],
         gestion_participants: [
             "Invitation et gestion de la liste des invités.",
-            "Confirmation de présence avec options (présent, en retard, absent).",
-            "Messagerie intégrée pour communiquer avec les participants."
         ],
         accessibilite: [
-            "Disponible sur mobile et web.",
-            "Synchronisation avec Google Calendar, Outlook et d’autres outils.",
-            "Partage facile d’événements via un lien ou QR code."
+            "Application sur ordinateur",
+        ],
+        Securite : [
+            "Système de connexion sécurisé avec authentification à deux facteurs.",
+            "Chiffrement des données pour protéger la vie privée des utilisateurs.",
         ]
     },
     défi: "Assurer la compatibilité et la performance avec Java tout en offrant une expérience utilisateur fluide et intuitive.",
     solution: "Utilisation des meilleures pratiques Java avec Spring Boot pour un backend robuste, Docker pour la scalabilité et des notifications en temps réel pour une gestion efficace.",
-    technologies: ["Java", "Spring Boot", "Docker"],
+    technologies: ["Java", "Spring Boot", "MySQL"],
     evolution_future: [
         "IA prédictive qui aide à planifier selon les tendances et préférences des utilisateurs.",
         "Mode collaboratif où plusieurs organisateurs peuvent gérer un même événement.",

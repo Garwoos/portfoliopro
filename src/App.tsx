@@ -23,7 +23,7 @@ function App() {
     linkedin: "https://www.linkedin.com/in/sam-maisonneuve-53b609265/",
     github: "https://github.com/Garwoos",
     resume: `${import.meta.env.BASE_URL}resume.pdf`,
-    bio: "Étudiant en informatique, spécialisé en développement web/app. Passionné par la technologie et l'innovation, j'aime créer des applications web qui ont un impact positif sur les gens. Je suis actuellement à la recherche d'opportunités de stage en développement web/app.",
+    bio: "Passionné par la technologie et l'innovation, j'aime créer des applications web qui ont un impact positif sur les gens. Je suis actuellement à la recherche d'opportunités développement web/app.",
   };
 
   useEffect(() => {
