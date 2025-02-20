@@ -110,21 +110,23 @@ export function ProjectCarousel({ projects, onProjectClick }: ProjectCarouselPro
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1e39e5]/80 to-transparent" />
             <div className="absolute bottom-0 left-0 p-8">
-              <h2 className="text-3xl font-bold text-[#04070D]">
-                {projects[currentIndex].title}
-              </h2>
-              <p className="mt-2 max-w-xl text-[#fffdf5]">
-                {projects[currentIndex].description}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {projects[currentIndex].technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-full bg-[#fffdf5]/20 px-3 py-1 text-sm text-[#fffdf5] backdrop-blur-sm"
-                  >
-                    {tech}
-                  </span>
-                ))}
+              <div className="bg-[#04070D]/50 p-4 rounded-lg backdrop-blur-sm">
+                <h2 className="text-3xl font-bold text-[#fffdf5]">
+                  {projects[currentIndex].title}
+                </h2>
+                <p className="mt-2 max-w-xl text-[#fffdf5]">
+                  {projects[currentIndex].description}
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {projects[currentIndex].technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-full bg-[#fffdf5]/20 px-3 py-1 text-sm text-[#fffdf5] backdrop-blur-sm"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

@@ -1,11 +1,12 @@
 import React from "react";
-import { User, MapPin, Globe, Linkedin, Github, FileText } from "lucide-react";
+import { User, MapPin, Globe, Linkedin, Github, FileText, Mail, X, Phone } from "lucide-react";
 
 interface UserProfileProps {
   user: {
     name: string;
     title: string;
     email: string;
+    number: string;
     location?: string;
     languages?: string;
     avatar?: string;
@@ -73,6 +74,21 @@ export function UserProfile({ user }: UserProfileProps) {
           {user.github && (
             <a href={user.github} target="_blank" rel="noopener noreferrer" className="text-[#04070D] hover:opacity-80">
               <Github className="h-6 w-6" />
+            </a>
+          )}
+          {user.twitter && (
+            <a href={user.twitter} target="_blank" rel="noopener noreferrer" className="text-[#04070D] hover:opacity-80">
+              <X className="h-6 w-6" />
+            </a>
+          )}
+          {user.email && (
+            <a href={`mailto:${user.email}`} className="text-[#04070D] hover:opacity-80">
+              <Mail className="h-6 w-6" />
+            </a>
+          )}
+          {user.number && (
+            <a href={`tel:${user.number}`} className="text-[#04070D] hover:opacity-80">
+              <Phone className="h-6 w-6" />
             </a>
           )}
           {user.resume && (

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface Building {
   x: number;
@@ -28,13 +28,21 @@ interface Star {
   twinkleOffset: number;
 }
 
-export function AnimatedBackground({ showHill }: { showHill: boolean }) {
+interface AnimatedBackgroundProps {
+  showHill: boolean;
+  className?: string;
+  buildings: Building[];
+  style?: React.CSSProperties;
+}
+
+export function AnimatedBackground({ showHill, className, buildings, style }: AnimatedBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>();
   const buildingsRef = useRef<Building[]>([]);
   const starsRef = useRef<Star[]>([]);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const leavesRef = useRef<{ x: number; y: number; size: number }[]>([]);
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -69,8 +77,11 @@ export function AnimatedBackground({ showHill }: { showHill: boolean }) {
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      initializeBuildings();
-      initializeStars();
+      if (!initialized) {
+        initializeBuildings();
+        initializeStars();
+        setInitialized(true);
+      }
     };
 
     const createWindows = (building: Building) => {
@@ -82,28 +93,16 @@ export function AnimatedBackground({ showHill }: { showHill: boolean }) {
         const numFloors = Math.floor((building.height - windowSpacing * 2) / windowSpacing);
         for (let floor = 0; floor < numFloors; floor++) {
           const wy = canvas.height - building.height + windowSpacing + (floor * windowSpacing);
-          const shouldBlink = Math.random() < 0.55; // Augmenter la probabilité de clignotement
-          if (Math.random() > 0.4) {
-            windows.push({
-              x: wx,
-              y: wy,
-              size: windowSize,
-              isLit: true,
-              brightness: 0.7 + Math.random() * 0.5,
-              blinkPhase: Math.random() * Math.PI * 2,
-              shouldBlink
-            });
-          } else {
-            windows.push({
-              x: wx,
-              y: wy,
-              size: windowSize,
-              isLit: Math.random() > 0.5,
-              brightness: 0.3 + Math.random() * 0.2,
-              blinkPhase: 0,
-              shouldBlink
-            });
-          }
+          const shouldBlink = Math.random() < 0.55;
+          windows.push({
+            x: wx,
+            y: wy,
+            size: windowSize,
+            isLit: Math.random() > 0.4,
+            brightness: Math.random() > 0.4 ? 0.7 + Math.random() * 0.5 : 0.3 + Math.random() * 0.2,
+            blinkPhase: Math.random() * Math.PI * 2,
+            shouldBlink
+          });
         }
       }
       return windows;
@@ -152,11 +151,10 @@ export function AnimatedBackground({ showHill }: { showHill: boolean }) {
             width,
             height,
             color: layer.colors[Math.floor(Math.random() * layer.colors.length)],
-            windows: [],
+            windows: createWindows({ x, width, height, color: '', windows: [], layer: layerIndex + 1 }),
             layer: layerIndex + 1
           };
 
-          building.windows = createWindows(building);
           buildings.push(building);
         }
       });
@@ -176,9 +174,9 @@ export function AnimatedBackground({ showHill }: { showHill: boolean }) {
 
       building.windows.forEach(window => {
         if (window.isLit) {
-          const twinkle = Math.sin(time / (5000 / window.blinkPhase) + window.blinkPhase); // Prolonger la durée du scintillement
+          const twinkle = Math.sin(time / (5000 / window.blinkPhase) + window.blinkPhase);
           const brightness = window.shouldBlink
-            ? (twinkle * 0.5 + 0.5) * window.brightness * fogFactor // Augmenter l'amplitude du scintillement
+            ? (twinkle * 0.5 + 0.5) * window.brightness * fogFactor
             : window.brightness * fogFactor;
 
           ctx.fillStyle = `rgba(255, 255, 200, ${brightness})`;
@@ -206,37 +204,30 @@ export function AnimatedBackground({ showHill }: { showHill: boolean }) {
     };
 
     const drawHill = () => {
-      if (!showHill) return; // N'affiche pas la colline si showHill est faux
+      if (!showHill) return;
 
       ctx.fillStyle = '#0a1f0a';
       ctx.beginPath();
       ctx.moveTo(canvas.width * 0.55, canvas.height);
-    
-      // Création de plusieurs bosses et creux pour un effet plus naturel
+
       ctx.quadraticCurveTo(canvas.width * 0.70, canvas.height * 0.75, canvas.width * 0.70, canvas.height * 0.78);
       ctx.quadraticCurveTo(canvas.width * 0.80, canvas.height * 0.70, canvas.width * 0.82, canvas.height * 0.70);
       ctx.quadraticCurveTo(canvas.width * 0.87, canvas.height * 0.65, canvas.width * 0.92, canvas.height * 0.65);
       ctx.quadraticCurveTo(canvas.width * 0.96, canvas.height * 0.60, canvas.width, canvas.height * 0.60);
-    
+
       ctx.lineTo(canvas.width, canvas.height);
       ctx.closePath();
       ctx.fill();
-    
-      // Contour léger pour donner un effet de profondeur
+
       ctx.strokeStyle = '#0e2a0e';
       ctx.lineWidth = 3;
       ctx.stroke();
-    
-      // Draw the tree
-      drawTree();
     };
-    
+
     const drawTree = () => {
-      // Draw the trunk
       ctx.fillStyle = '#8B4513';
       ctx.fillRect(canvas.width * 0.96, canvas.height * 0.55, 100, 250);
-    
-      // Initialize leaves if not already done
+
       if (leavesRef.current.length === 0) {
         for (let i = 0; i < 5; i++) {
           const leafX = canvas.width * 0.96 + Math.random() * 100;
@@ -245,8 +236,7 @@ export function AnimatedBackground({ showHill }: { showHill: boolean }) {
           leavesRef.current.push({ x: leafX, y: leafY, size: leafSize });
         }
       }
-    
-      // Draw the leaves
+
       ctx.fillStyle = '#228B22';
       leavesRef.current.forEach(leaf => {
         ctx.beginPath();
@@ -254,8 +244,6 @@ export function AnimatedBackground({ showHill }: { showHill: boolean }) {
         ctx.fill();
       });
     };
-
-    
 
     const animate = (time: number) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -314,7 +302,6 @@ export function AnimatedBackground({ showHill }: { showHill: boolean }) {
       if (showHill && imageRef.current) {
         ctx.drawImage(imageRef.current, canvas.width * 0.88, canvas.height * 0.85 - 200, 200, 200);
       }
-      
 
       animationFrameRef.current = requestAnimationFrame(animate);
     };
@@ -331,5 +318,5 @@ export function AnimatedBackground({ showHill }: { showHill: boolean }) {
     };
   }, [showHill]);
 
-  return <canvas ref={canvasRef} className="fixed inset-0 -z-10 pointer-events-none" />;
+  return <canvas ref={canvasRef} className={`fixed inset-0 -z-10 pointer-events-none ${className}`} style={style} />;
 }
