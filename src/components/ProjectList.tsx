@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Project } from '../types';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ProjectListProps {
   projects: Project[];
@@ -16,6 +17,11 @@ export function ProjectList({ projects, onProjectClick }: ProjectListProps) {
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
   };
+
+  useEffect(() => {
+    const interval = setInterval(handleNext, 5000); // Change project every 5 seconds
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="relative h-[600px] w-full overflow-hidden rounded-xl bg-transparent dark:bg-transparent">
@@ -48,10 +54,18 @@ export function ProjectList({ projects, onProjectClick }: ProjectListProps) {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-        <button onClick={handlePrev} className="bg-[#04070D]/50 hover:bg-[#04070D]/70 p-2 rounded-full">Précédent</button>
-        <button onClick={handleNext} className="bg-[#04070D]/50 hover:bg-[#04070D]/70 p-2 rounded-full">Suivant</button>
-      </div>
+      <button
+        onClick={handlePrev}
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-[#04070D]/50 hover:bg-[#04070D]/70 p-2 rounded-full transition-transform duration-200 hover:scale-110 active:scale-90"
+      >
+        <ChevronLeft className="text-white" />
+      </button>
+      <button
+        onClick={handleNext}
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-[#04070D]/50 hover:bg-[#04070D]/70 p-2 rounded-full transition-transform duration-200 hover:scale-110 active:scale-90"
+      >
+        <ChevronRight className="text-white" />
+      </button>
     </div>
   );
 }

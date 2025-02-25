@@ -203,48 +203,6 @@ export function AnimatedBackground({ showHill, className, buildings, style }: An
       });
     };
 
-    const drawHill = () => {
-      if (!showHill) return;
-
-      ctx.fillStyle = '#0a1f0a';
-      ctx.beginPath();
-      ctx.moveTo(canvas.width * 0.55, canvas.height);
-
-      ctx.quadraticCurveTo(canvas.width * 0.70, canvas.height * 0.75, canvas.width * 0.70, canvas.height * 0.78);
-      ctx.quadraticCurveTo(canvas.width * 0.80, canvas.height * 0.70, canvas.width * 0.82, canvas.height * 0.70);
-      ctx.quadraticCurveTo(canvas.width * 0.87, canvas.height * 0.65, canvas.width * 0.92, canvas.height * 0.65);
-      ctx.quadraticCurveTo(canvas.width * 0.96, canvas.height * 0.60, canvas.width, canvas.height * 0.60);
-
-      ctx.lineTo(canvas.width, canvas.height);
-      ctx.closePath();
-      ctx.fill();
-
-      ctx.strokeStyle = '#0e2a0e';
-      ctx.lineWidth = 3;
-      ctx.stroke();
-    };
-
-    const drawTree = () => {
-      ctx.fillStyle = '#8B4513';
-      ctx.fillRect(canvas.width * 0.96, canvas.height * 0.55, 100, 250);
-
-      if (leavesRef.current.length === 0) {
-        for (let i = 0; i < 5; i++) {
-          const leafX = canvas.width * 0.96 + Math.random() * 100;
-          const leafY = canvas.height * 0.45 + Math.random() * 100;
-          const leafSize = 150 + Math.random() * 20;
-          leavesRef.current.push({ x: leafX, y: leafY, size: leafSize });
-        }
-      }
-
-      ctx.fillStyle = '#228B22';
-      leavesRef.current.forEach(leaf => {
-        ctx.beginPath();
-        ctx.ellipse(leaf.x, leaf.y, leaf.size, leaf.size * 0.6, Math.random() * Math.PI * 2, 0, Math.PI * 2);
-        ctx.fill();
-      });
-    };
-
     const animate = (time: number) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -297,10 +255,10 @@ export function AnimatedBackground({ showHill, className, buildings, style }: An
           .forEach(building => drawBuilding(building, time));
       });
 
-      drawHill();
-
       if (showHill && imageRef.current) {
-        ctx.drawImage(imageRef.current, canvas.width * 0.88, canvas.height * 0.85 - 200, 200, 200);
+        const imageWidth = imageRef.current.width / 2;
+        const imageHeight = imageRef.current.height / 2;
+        ctx.drawImage(imageRef.current, canvas.width - imageWidth/1.7, canvas.height - imageHeight, imageWidth, imageHeight);
       }
 
       animationFrameRef.current = requestAnimationFrame(animate);

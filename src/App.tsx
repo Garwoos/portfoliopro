@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ProjectList } from './components/ProjectList';
 import { ProjectModal } from './components/ProjectModal';
 import { UserProfile } from './components/UserProfile';
+import { ProjectGrid } from './components/ProjectGrid';
 import BackgroundView from './components/BackgroundView';
 import { AnimatedBackground } from './components/AnimatedBackground';
 import { projects } from './data/projects';
@@ -154,6 +155,20 @@ function App() {
                     </p>
                     <div className="mt-8">
                       <ProjectList
+                        projects={projects}
+                        onProjectClick={setSelectedProject}
+                      />
+                    </div>
+                  </section>
+
+                  {/* All Projects Section */}
+                  <section id="all-projects" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
+                    <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Tous les Projets</h2>
+                    <p className="mt-2 text-[#fffdf5] select-none">
+                      Voici une liste de tous les projets que j'ai réalisés.
+                    </p>
+                    <div className="mt-8">
+                      <ProjectGrid
                         projects={projects}
                         onProjectClick={setSelectedProject}
                       />
