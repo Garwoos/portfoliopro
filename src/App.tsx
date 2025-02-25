@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ProjectCarousel } from './components/ProjectCarousel';
+import { ProjectList } from './components/ProjectList';
 import { ProjectModal } from './components/ProjectModal';
 import { UserProfile } from './components/UserProfile';
 import BackgroundView from './components/BackgroundView';
@@ -153,7 +153,7 @@ function App() {
                       Voici quelques projets que j'ai réalisés dans le cadre de mes études et expériences professionnelles.
                     </p>
                     <div className="mt-8">
-                      <ProjectCarousel
+                      <ProjectList
                         projects={projects}
                         onProjectClick={setSelectedProject}
                       />
