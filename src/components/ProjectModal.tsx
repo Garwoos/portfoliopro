@@ -71,7 +71,7 @@ const ProjectModalComponent = ({ project, isOpen, onClose }: ProjectModalProps) 
                   src={project.image}
                   alt={project.titre}
                   className="h-full w-full object-cover transition-transform transform hover:scale-105 duration-300"
-                  loading="lazy"
+                  loading="lazy" // Utiliser lazy loading pour les images
                 />
               </div>
 
@@ -144,6 +144,7 @@ const ProjectModalComponent = ({ project, isOpen, onClose }: ProjectModalProps) 
                       autoPlay
                       className="w-full rounded-lg border border-[#1e39e5] border-opacity-50 shadow-md"
                       onLoadedData={() => setVideoLoaded(true)}
+                      loading="lazy" // Utiliser lazy loading pour les vidéos
                     >
                       Your browser does not support the video tag.
                     </video>

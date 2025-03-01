@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { ProjectList } from './components/ProjectList';
 import { ProjectModal } from './components/ProjectModal';
 import { UserProfile } from './components/UserProfile';
@@ -10,7 +11,7 @@ import { Project } from './types';
 import { Github, Linkedin, Mail, Phone, X, ChevronDown, Mouse } from 'lucide-react';
 import './App.css'; // Assurez-vous d'importer le fichier CSS
 
-function App() {
+const App = memo(() => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [showProfile, setShowProfile] = useState(false);
   const [showHill, setShowHill] = useState(false);
@@ -33,7 +34,9 @@ function App() {
     github: "https://github.com/Garwoos",
     twitter: "https://twitter.com/DevSoow",
     resume: `${import.meta.env.BASE_URL}resume.pdf`,
-    bio: "Passionné par la technologie et l'innovation, j'aime créer des applications web qui ont un impact positif sur les gens. Je suis actuellement à la recherche d'opportunités développement web/app.",
+    bio: `Étudiant en informatique de 20 ans, spécialisé en développement web/app | Passionné par la technologie et l’innovation, je suis actuellement en 2ème année de BTS SIO option SLAM (informatique) au lycée Jean lurçat à Perpignan. 
+    Originaire de Perpignan, je conçois des applications web qui améliorent le quotidien des utilisateurs. Compétent en React, JavaScript, Node.js, ainsi qu’en bases de données SQL/NoSQL, je maîtrise également Java et Python. J’ai récemment développé un simulateur d’alarme interactif, intégrant des fonctionnalités avancées.
+    Je suis convaincu qu’un bon développement repose sur un code propre, efficace et centré sur l’utilisateur. J’aime relever des défis techniques, apprendre de nouvelles technologies et optimiser les performances des applications que je crée. J’ai eu l’occasion de travailler sur plusieurs projets, allant d’applications web interactives à des solutions back-end robustes. Actuellement en recherche d’opportunités (stage, alternance, freelance), je serais ravi d’échanger sur des collaborations potentielles !`,
   };
 
   useEffect(() => {
@@ -80,172 +83,179 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen">
-      <AnimatedBackground showHill={showHill} className="zoom-in" buildings={buildings} setBuildings={setBuildings} style={{ transform: `scale(${scale})` }} />
-      
-      {!showBackground && (
-        <header className={`fixed top-0 z-40 w-full bg-[#7083A3]/80 backdrop-blur-sm pointer-events-none ${selectedProject ? 'hidden' : ''}`}>
-          <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-            <div className="text-2xl font-bold text-[#fffdf5] pointer-events-auto">Portfolio</div>
-            <nav className="flex items-center gap-6 pointer-events-auto">
-              <a href="#projects" className="text-sm font-medium text-[#fffdf5] hover:text-[#1e39e5] select-none">
-                Projects
-              </a>
-              <a href="#contact" className="text-sm font-medium text-[#fffdf5] hover:text-[#1e39e5] select-none">
-                Contact
-              </a>
-              <button
-                onClick={toggleProfile}
-                className="rounded-full bg-[#1e39e5]/10 p-2 text-[#fffdf5] hover:bg-[#1e39e5]/20"
-              >
-                <img src={user.avatar} alt="User Avatar" className="h-5 w-5 rounded-full" />
-              </button>
-              <button
-                onClick={toggleBackground}
-                className="rounded-full bg-[#1e39e5]/10 p-2 text-[#fffdf5] hover:bg-[#1e39e5]/20"
-              >
-                Voir fond d'écran
-              </button>
-            </nav>
+    <Router>
+      <div className="min-h-screen">
+        <AnimatedBackground showHill={showHill} className="zoom-in" buildings={buildings} setBuildings={setBuildings} style={{ transform: `scale(${scale})` }} />
+        
+        {!showBackground && (
+          <header className={`fixed top-0 z-40 w-full bg-[#7083A3]/80 backdrop-blur-sm pointer-events-none ${selectedProject ? 'hidden' : ''}`}>
+            <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+              <div className="text-2xl font-bold text-[#fffdf5] pointer-events-auto">Portfolio</div>
+              <nav className="flex items-center gap-6 pointer-events-auto">
+                <a href="#projects" className="text-sm font-medium text-[#fffdf5] hover:text-[#1e39e5] select-none">
+                  Projects
+                </a>
+                <a href="#contact" className="text-sm font-medium text-[#fffdf5] hover:text-[#1e39e5] select-none">
+                  Contact
+                </a>
+                <button
+                  onClick={toggleProfile}
+                  className="rounded-full bg-[#1e39e5]/10 p-2 text-[#fffdf5] hover:bg-[#1e39e5]/20"
+                >
+                  <img src={user.avatar} alt="User Avatar" className="h-5 w-5 rounded-full" />
+                </button>
+                <button
+                  onClick={toggleBackground}
+                  className="rounded-full bg-[#1e39e5]/10 p-2 text-[#fffdf5] hover:bg-[#1e39e5]/20"
+                >
+                  Voir fond d'écran
+                </button>
+              </nav>
+            </div>
+          </header>
+        )}
+
+        {showBackground && (
+          <div className={`scroll-icon ${scale < 2 ? 'hidden' : ''}`}>
+            <Mouse className="h-6 w-6 text-[#fffdf5]" />
+            <ChevronDown className="h-6 w-6 text-[#fffdf5]" />
           </div>
-        </header>
-      )}
+        )}
 
-      {showBackground && (
-        <div className={`scroll-icon ${scale < 2 ? 'hidden' : ''}`}>
-          <Mouse className="h-6 w-6 text-[#fffdf5]" />
-          <ChevronDown className="h-6 w-6 text-[#fffdf5]" />
-        </div>
-      )}
+        {showBackground && (
+          <button
+            onClick={toggleBackground}
+            className="fixed top-4 right-4 rounded-full bg-[#1e39e5]/10 p-2 text-[#fffdf5] hover:bg-[#1e39e5]/20 z-50"
+          >
+            Revenir en arrière
+          </button>
+        )}
 
-      {showBackground && (
-        <button
-          onClick={toggleBackground}
-          className="fixed top-4 right-4 rounded-full bg-[#1e39e5]/10 p-2 text-[#fffdf5] hover:bg-[#1e39e5]/20 z-50"
-        >
-          Revenir en arrière
-        </button>
-      )}
-
-      {!showBackground && (
-        <>
-          {!selectedProject && (
-            <>
-              {showProfile ? (
-                <UserProfile user={user} />
-              ) : (
+        {!showBackground && (
+          <Routes>
+            <Route path="/" element={
+              !selectedProject ? (
                 <>
-                  {/* Hero Section */}
-                  <section className="relative pt-8 mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16 mt-20">
-                    <h1 className="text-4xl font-bold text-[#fffdf5] sm:text-5xl lg:text-6xl select-none">
-                      {user.name}
-                      <br />
-                      <span className="text-[#fffdf5]">Développeur web/app</span>
-                    </h1>
-                    <p className="mt-6 max-w-xl text-lg text-[#fffdf5] select-none">
-                      {user.bio}
-                    </p>
-                  </section>
+                  {showProfile ? (
+                    <UserProfile user={user} />
+                  ) : (
+                    <>
+                      {/* Hero Section */}
+                      <section className="relative pt-8 mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 
+                        bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16 mt-20">
+                        <h1 className="text-5xl font-extrabold text-[#fffdf5] sm:text-6xl lg:text-7xl select-none leading-tight">
+                          {user.name}
+                        </h1>
+                        <h2 className="text-3xl text-[#fffdf5] sm:text-4xl lg:text-5xl font-semibold mt-2 select-none">
+                          Développeur web/app
+                        </h2>
+                        <p className="mt-6 w-full text-lg text-[#fffdf5] select-none whitespace-pre-line text-justify leading-relaxed">
+                          {user.bio}
+                        </p>
+                      </section>
 
-                  {/* Projects Section */}
-                  <section id="projects" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
-                    <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Projets Informatiques</h2>
-                    <p className="mt-2 text-[#fffdf5] select-none">
-                      Voici quelques projets que j'ai réalisés dans le cadre de mes études et expériences professionnelles.
-                    </p>
-                    <div className="mt-8">
-                      <ProjectList
-                        projects={projects}
-                        onProjectClick={setSelectedProject}
-                      />
-                    </div>
-                  </section>
+                      {/* Projects Section */}
+                      <section id="projects" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
+                        <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Projets Informatiques</h2>
+                        <p className="mt-2 text-[#fffdf5] select-none">
+                          Voici quelques projets que j'ai réalisés dans le cadre de mes études et expériences professionnelles.
+                        </p>
+                        <div className="mt-8">
+                          <ProjectList
+                            projects={projects}
+                            onProjectClick={setSelectedProject}
+                          />
+                        </div>
+                      </section>
 
-                  {/* All Projects Section */}
-                  <section id="all-projects" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
-                    <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Tous les Projets</h2>
-                    <p className="mt-2 text-[#fffdf5] select-none">
-                      Voici une liste de tous les projets que j'ai réalisés.
-                    </p>
-                    <div className="mt-8">
-                      <ProjectGrid
-                        projects={projects}
-                        onProjectClick={setSelectedProject}
-                      />
-                    </div>
-                  </section>
+                      {/* All Projects Section */}
+                      <section id="all-projects" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
+                        <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Tous les Projets</h2>
+                        <p className="mt-2 text-[#fffdf5] select-none">
+                          Voici une liste de tous les projets que j'ai réalisés.
+                        </p>
+                        <div className="mt-8">
+                          <ProjectGrid
+                            projects={projects}
+                            onProjectClick={setSelectedProject}
+                          />
+                        </div>
+                      </section>
 
-                  {/* Contact Section */}
-                  <section id="contact" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
-                    <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Contact</h2>
-                    <p className="mt-2 text-[#fffdf5] select-none">
-                      N'hésitez pas à me contacter pour toute opportunité ou collaboration !
-                    </p>
-                    <div className="mt-8 flex flex-wrap gap-6">
-                      {user.github && (
-                        <a
-                          href={user.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="rounded-full bg-[#1e39e5]/10 p-3 text-white hover:bg-[#1e39e5]/20"
-                        >
-                          <Github className="h-6 w-6" />
-                        </a>
-                      )}
-                      {user.linkedin && (
-                        <a
-                          href={user.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="rounded-full bg-[#1e39e5]/10 p-3 text-white hover:bg-[#1e39e5]/20"
-                        >
-                          <Linkedin className="h-6 w-6" />
-                        </a>
-                      )}
-                      {user.twitter && (
-                        <a
-                          href={user.twitter}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="rounded-full bg-[#1e39e5]/10 p-3 text-white hover:bg-[#1e39e5]/20"
-                        >
-                          <X className="h-6 w-6" />
-                        </a>
-                      )}
-                      {user.email && (
-                        <a
-                          href={`mailto:${user.email}`}
-                          className="flex items-center gap-2 rounded-full bg-[#1e39e5]/10 p-3 text-white hover:bg-[#1e39e5]/20"
-                        >
-                          <Mail className="h-6 w-6" />
-                          <span>{user.email}</span>
-                        </a>
-                      )}
-                      {user.number && (
-                        <a
-                          href={`tel:${user.number}`}
-                          className="flex items-center gap-2 rounded-full bg-[#1e39e5]/10 p-3 text-white hover:bg-[#1e39e5]/20"
-                        >
-                          <Phone className="h-6 w-6" />
-                          <span>{user.number}</span>
-                        </a>
-                      )}
-                    </div>
-                  </section>
+                      {/* Contact Section */}
+                      <section id="contact" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
+                        <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Contact</h2>
+                        <p className="mt-2 text-[#fffdf5] select-none">
+                          N'hésitez pas à me contacter pour toute opportunité ou collaboration !
+                        </p>
+                        <div className="mt-8 flex flex-wrap gap-6">
+                          {user.github && (
+                            <a
+                              href={user.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="rounded-full bg-[#1e39e5]/10 p-3 text-white hover:bg-[#1e39e5]/20"
+                            >
+                              <Github className="h-6 w-6" />
+                            </a>
+                          )}
+                          {user.linkedin && (
+                            <a
+                              href={user.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="rounded-full bg-[#1e39e5]/10 p-3 text-white hover:bg-[#1e39e5]/20"
+                            >
+                              <Linkedin className="h-6 w-6" />
+                            </a>
+                          )}
+                          {user.twitter && (
+                            <a
+                              href={user.twitter}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="rounded-full bg-[#1e39e5]/10 p-3 text-white hover:bg-[#1e39e5]/20"
+                            >
+                              <X className="h-6 w-6" />
+                            </a>
+                          )}
+                          {user.email && (
+                            <a
+                              href={`mailto:${user.email}`}
+                              className="flex items-center gap-2 rounded-full bg-[#1e39e5]/10 p-3 text-white hover:bg-[#1e39e5]/20"
+                            >
+                              <Mail className="h-6 w-6" />
+                              <span>{user.email}</span>
+                            </a>
+                          )}
+                          {user.number && (
+                            <a
+                              href={`tel:${user.number}`}
+                              className="flex items-center gap-2 rounded-full bg-[#1e39e5]/10 p-3 text-white hover:bg-[#1e39e5]/20"
+                            >
+                              <Phone className="h-6 w-6" />
+                              <span>{user.number}</span>
+                            </a>
+                          )}
+                        </div>
+                      </section>
+                    </>
+                  )}
                 </>
-              )}
-            </>
-          )}
-
-          <ProjectModal
-            project={selectedProject}
-            isOpen={!!selectedProject}
-            onClose={() => setSelectedProject(null)}
-          />
-        </>
-      )}
-    </div>
+              ) : (
+                <ProjectModal
+                  project={selectedProject}
+                  isOpen={!!selectedProject}
+                  onClose={() => setSelectedProject(null)}
+                />
+              )
+            } />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        )}
+      </div>
+    </Router>
   );
-}
+});
 
 export default App;

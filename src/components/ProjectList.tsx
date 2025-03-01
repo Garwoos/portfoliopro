@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Project } from '../types';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -7,7 +7,7 @@ interface ProjectListProps {
   onProjectClick: (project: Project) => void;
 }
 
-export function ProjectList({ projects, onProjectClick }: ProjectListProps) {
+export const ProjectList = memo(({ projects, onProjectClick }: ProjectListProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
@@ -68,4 +68,4 @@ export function ProjectList({ projects, onProjectClick }: ProjectListProps) {
       </button>
     </div>
   );
-}
+});

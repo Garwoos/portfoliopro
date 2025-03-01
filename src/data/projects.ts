@@ -24,7 +24,7 @@ export const projects = [
         "Personnalisation des messages (ajout d’images de fond, polices, mises en page)."
       ]
     },
-    technologies: ["Java", "Spring Boot", "Docker"],
+    technologies: ["Java", "Spring Boot"],
     image: `${import.meta.env.BASE_URL}Publicom.png`,
     urlDemo: `${import.meta.env.BASE_URL}Publicom.mp4`,
     urlGithub: "https://github.com/Garwoos/PubliCom"
@@ -102,7 +102,7 @@ export const projects = [
         "Utilisation de MySQL pour la gestion des données et Apache comme serveur d’application."
       ]
     },
-    technologies: ["JavaScript", "React", "Node.js", "MariaDB", "Docker"],
+    technologies: ["JavaScript", "React", "Node.js", "MariaDB"],
     image: `${import.meta.env.BASE_URL}StartAlarm.png`,
     urlDemo: ``,
     urlGithub: ""
