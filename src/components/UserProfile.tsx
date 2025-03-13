@@ -1,5 +1,7 @@
 import React from "react";
-import { User, MapPin, Globe, Linkedin, Github, FileText, Mail, X, Phone } from "lucide-react";
+import { User, MapPin, Globe, Linkedin, Github, Mail } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6"
+import { FileText } from "lucide-react";
 
 interface UserProfileProps {
   user: {
@@ -78,17 +80,12 @@ export function UserProfile({ user }: UserProfileProps) {
           )}
           {user.twitter && (
             <a href={user.twitter} target="_blank" rel="noopener noreferrer" className="text-[#04070D] hover:opacity-80">
-              <X className="h-6 w-6" />
+              <FaXTwitter className="h-6 w-6" />
             </a>
           )}
           {user.email && (
             <a href={`mailto:${user.email}`} className="text-[#04070D] hover:opacity-80">
               <Mail className="h-6 w-6" />
-            </a>
-          )}
-          {user.number && (
-            <a href={`tel:${user.number}`} className="text-[#04070D] hover:opacity-80">
-              <Phone className="h-6 w-6" />
             </a>
           )}
           {user.resume && (

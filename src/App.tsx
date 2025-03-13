@@ -8,7 +8,11 @@ import BackgroundView from './components/BackgroundView';
 import { AnimatedBackground } from './components/AnimatedBackground';
 import { projects } from './data/projects';
 import { Project } from './types';
-import { Github, Linkedin, Mail, Phone, X, ChevronDown, Mouse } from 'lucide-react';
+import { Github, Linkedin, Mail, ChevronDown, Mouse, FileText } from 'lucide-react';
+import { DiJavascript1, DiPython, DiHtml5, DiCss3, DiJava, DiPhp, DiMysql, DiVisualstudio, DiReact, DiNodejs } from 'react-icons/di';
+import { SiSpring, SiTypescript } from 'react-icons/si';
+import { FaLaptopCode, FaXTwitter } from "react-icons/fa6"
+import { FaServer } from "react-icons/fa";
 import './App.css'; // Assurez-vous d'importer le fichier CSS
 
 const App = memo(() => {
@@ -28,7 +32,8 @@ const App = memo(() => {
     email: "s.maisonneuvepro@gmail.com",
     number: "+33 6 35 38 15 68",
     location: "Perpignan, France",
-    Languages: "JavaScript, TypeScript, Python, SQL, HTML, CSS, java, PHP",
+    Languages: "JavaScript{#f7df1e}, TypeScript{#3178c6}, Python{#306998}, SQL{#e38c00}, HTML{#e34f26}, CSS{#1572b6}, Java{#b07219}, PHP{#777bb4}",
+    Technologies: "Visual Studio Code{Logiciel}{#007ACC}, Github{Logiciel}, React{FrameWork}{#61DAFB}, Node.js{FrameWork}{#339933}, Spring Boot{FrameWork}{#6DB33F}, Windev{Logiciel}{#FF0000}, Express{FrameWork}{#807e7e}",
     avatar: `${import.meta.env.BASE_URL}avatar.png`,
     linkedin: "https://www.linkedin.com/in/sam-maisonneuve-53b609265/",
     github: "https://github.com/Garwoos",
@@ -80,6 +85,37 @@ const App = memo(() => {
     if (!newShowBackground) {
       setScale(2); // Réinitialiser l'échelle à 2 lorsque vous revenez à la page principale
     }
+  };
+
+  const parseLanguages = (languages: string) => {
+    return languages.split(', ').map((lang) => {
+      const [name, color] = lang.split('{');
+      return {
+        name: name.trim().toLowerCase(),
+        color: color ? color.replace('}', '').trim() : '#fffdf5',
+      };
+    });
+  };
+
+  const languageIcons: { [key: string]: JSX.Element } = {
+    javascript: <DiJavascript1 className="icon" />,
+    typescript: <SiTypescript className="icon" />,
+    python: <DiPython className="icon" />,
+    sql: <DiMysql className="icon" />,
+    html: <DiHtml5 className="icon" />,
+    css: <DiCss3 className="icon" />,
+    java: <DiJava className="icon" />,
+    php: <DiPhp className="icon" />,
+  };
+
+  const technologiesIcons: { [key: string]: JSX.Element } = {
+    'Visual Studio Code': <DiVisualstudio className="icon" />, // Replace with appropriate icon
+    Github: <Github className="icon" />,
+    React: <DiReact className="icon" />, // Replace with appropriate icon
+    'Node.js': <DiNodejs className="icon" />, // Replace with appropriate icon
+    'Spring Boot': <SiSpring className="icon" />, // Replace with appropriate icon
+    Windev: <FaLaptopCode className="icon" />, // Replace with appropriate icon
+    Express: <FaServer className="icon" />
   };
 
   return (
@@ -182,6 +218,71 @@ const App = memo(() => {
                         </div>
                       </section>
 
+                      {/* All languages Section */}
+                      <section id="all-languages" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
+                        <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Langages de programmation</h2>
+                        <p className="mt-2 text-[#fffdf5] select-none">
+                          Voici une liste des langages de programmation que je maîtrise.
+                        </p>
+                        <div className="mt-8">
+                          <ul className="grid grid-cols-4 gap-4 text-center">
+                            {parseLanguages(user.Languages).map(({ name, color }) => (
+                                <li key={name} className="flex flex-col items-center justify-center">
+                                <div style={{ color }}>
+                                  {React.cloneElement(languageIcons[name], { className: "h-20 w-20 transition-transform duration-300 transform hover:scale-110 hover:rotate-3" })}
+                                </div>
+                                <div className="text-[#fffdf5] text-center mt-2">
+                                  {name.charAt(0).toUpperCase() + name.slice(1)}
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </section>
+
+                      {/* All Technologies used Section */}
+                        <section id="all-technologies" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
+                        <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Technologies Utilisées</h2>
+                        <p className="mt-2 text-[#fffdf5] select-none">
+                        Voici une liste des technologies que j'ai utilisées pour mes projets.
+                        </p>
+                        <div className="mt-8">
+                        <h3 className="text-2xl font-semibold text-[#fffdf5] select-none">Frameworks</h3>
+                        <ul className="grid grid-cols-4 gap-4 text-center mt-4">
+                        {Object.entries(technologiesIcons).filter(([name]) => user.Technologies.includes(`${name}{FrameWork}`)).map(([name, icon]) => {
+                          const color = user.Technologies.split(', ').find(tech => tech.includes(name))?.split('{')[2]?.replace('}', '').trim() || '#fffdf5';
+                          return (
+                          <li key={name} className="flex flex-col items-center justify-center">
+                            <div style={{ color }}>
+                            {React.cloneElement(icon, { className: "h-20 w-20 transition-transform duration-300 transform hover:scale-110 hover:rotate-3" })}
+                            </div>
+                            <div className="text-[#fffdf5] text-center mt-2">
+                            {name.charAt(0).toUpperCase() + name.slice(1)}
+                            </div>
+                          </li>
+                          );
+                        })}
+                        </ul>
+                        <h3 className="text-2xl font-semibold text-[#fffdf5] select-none mt-8">Logiciels</h3>
+                        <ul className="grid grid-cols-4 gap-4 text-center mt-4">
+                        {Object.entries(technologiesIcons).filter(([name]) => user.Technologies.includes(`${name}{Logiciel}`)).map(([name, icon]) => {
+                          const color = user.Technologies.split(', ').find(tech => tech.includes(name))?.split('{')[2]?.replace('}', '').trim() || '#fffdf5';
+                          return (
+                          <li key={name} className="flex flex-col items-center justify-center">
+                            <div style={{ color }}>
+                            {React.cloneElement(icon, { className: "h-20 w-20 transition-transform duration-300 transform hover:scale-110 hover:rotate-3" })}
+                            </div>
+                            <div className="text-[#fffdf5] text-center mt-2">
+                            {name.charAt(0).toUpperCase() + name.slice(1)}
+                            </div>
+                          </li>
+                          );
+                        })}
+                        </ul>
+                        </div>
+                      </section>
+
+
                       {/* Contact Section */}
                       <section id="contact" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
                         <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Contact</h2>
@@ -216,7 +317,7 @@ const App = memo(() => {
                               rel="noopener noreferrer"
                               className="rounded-full bg-[#1e39e5]/10 p-3 text-white hover:bg-[#1e39e5]/20"
                             >
-                              <X className="h-6 w-6" />
+                              <FaXTwitter className="h-6 w-6" />
                             </a>
                           )}
                           {user.email && (
@@ -228,14 +329,16 @@ const App = memo(() => {
                               <span>{user.email}</span>
                             </a>
                           )}
-                          {user.number && (
+                          {user.resume && (
                             <a
-                              href={`tel:${user.number}`}
-                              className="flex items-center gap-2 rounded-full bg-[#1e39e5]/10 p-3 text-white hover:bg-[#1e39e5]/20"
-                            >
-                              <Phone className="h-6 w-6" />
-                              <span>{user.number}</span>
+                            href={`${import.meta.env.BASE_URL}resume.pdf`}
+                            className="flex items-center gap-2 rounded-full bg-[#1e39e5]/10 p-3 text-white hover:bg-[#1e39e5]/20"
+                          >
+                            <a href={user.resume} target="_blank" rel="noopener noreferrer" className="text-[#FF0010]">
+                              <FileText className="h-6 w-6" />
                             </a>
+                            <span>{user.email}</span>
+                          </a>
                           )}
                         </div>
                       </section>
