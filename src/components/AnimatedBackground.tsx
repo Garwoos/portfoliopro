@@ -19,15 +19,6 @@ interface Window {
   shouldBlink: boolean;
 }
 
-interface Star {
-  x: number;
-  y: number;
-  size: number;
-  brightness: number;
-  twinkleSpeed: number;
-  twinkleOffset: number;
-}
-
 interface AnimatedBackgroundProps {
   showHill: boolean;
   className?: string;
@@ -101,7 +92,7 @@ export function AnimatedBackground({ showHill, className, buildings, style }: An
         const numFloors = Math.floor((building.height - windowSpacing * 2) / windowSpacing);
         for (let floor = 0; floor < numFloors; floor++) {
           const wy = canvas.height - building.height + windowSpacing + (floor * windowSpacing);
-          const shouldBlink = Math.random() < 0.55;
+          const shouldBlink = Math.random() < 0.15; // 55% chance to blink
           windows.push({
             x: wx,
             y: wy,
@@ -144,7 +135,6 @@ export function AnimatedBackground({ showHill, className, buildings, style }: An
 
       layers.forEach((layer, layerIndex) => {
         let currentX = -50;
-        const baseY = canvas.height;
 
         for (let i = 0; i < layer.count; i++) {
           const width = Math.random() * (layer.widthRange[1] - layer.widthRange[0]) + layer.widthRange[0];
@@ -215,7 +205,7 @@ export function AnimatedBackground({ showHill, className, buildings, style }: An
         if (isWindowHidden(window, buildingsRef.current, building)) return;
 
         if (window.isLit) {
-          const twinkle = sineLookup[Math.floor((time / (5000 / window.blinkPhase) + window.blinkPhase) % 360)];
+          const twinkle = sineLookup[Math.floor((time / (1000 / window.blinkPhase) + window.blinkPhase) % 360)];
           const brightness = window.shouldBlink
             ? (twinkle * 0.5 + 0.5) * window.brightness
             : window.brightness;
@@ -308,7 +298,18 @@ export function AnimatedBackground({ showHill, className, buildings, style }: An
       [1, 2, 3].forEach(layer => {
         buildingsRef.current
           .filter(b => b.layer === layer)
-          .forEach(building => drawBuilding(building, time));
+          .forEach(building => {
+            // Update blinkPhase for each window
+            building.windows.forEach(window => {
+              if (window.shouldBlink) {
+                window.blinkPhase += 0.2; // Increase the increment value for faster blinking
+                if (window.blinkPhase > Math.PI * 2) {
+                  window.blinkPhase -= Math.PI * 2; // Reset blinkPhase to keep it within 0 to 2π
+                }
+              }
+            });
+            drawBuilding(building, time);
+          });
       });
 
       if (showHill && imageRef.current) {
@@ -333,7 +334,7 @@ export function AnimatedBackground({ showHill, className, buildings, style }: An
       }
       window.removeEventListener('resize', resizeCanvas);
     };
-  }, [showHill]);
+  }, [showHill, initialized, sineLookup]);
 
   return <canvas ref={canvasRef} className={`fixed inset-0 -z-10 pointer-events-none ${className}`} style={style} />;
 }
