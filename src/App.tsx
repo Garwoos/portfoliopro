@@ -8,12 +8,13 @@ import BackgroundView from './components/BackgroundView';
 import { AnimatedBackground } from './components/AnimatedBackground';
 import { projects } from './data/projects';
 import { Project } from './types';
-import { Github, Linkedin, Mail, ChevronDown, Mouse, FileText } from 'lucide-react';
+import { Github, Linkedin, Mail, ChevronDown, Mouse, FileText, Table2} from 'lucide-react';
 import { DiJavascript1, DiPython, DiHtml5, DiCss3, DiJava, DiPhp, DiMysql, DiVisualstudio, DiReact, DiNodejs } from 'react-icons/di';
 import { SiSpring, SiTypescript } from 'react-icons/si';
 import { FaLaptopCode, FaXTwitter } from "react-icons/fa6"
 import { FaServer } from "react-icons/fa";
 import './App.css'; // Assurez-vous d'importer le fichier CSS
+import { EvaluationModal } from './components/EvaluationModal';
 
 const App = memo(() => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -24,6 +25,54 @@ const App = memo(() => {
   const [scale, setScale] = useState(2); // Initialiser à 2 pour un zoom par défaut
   const scaleRef = useRef(scale);
   scaleRef.current = scale;
+  const [showEvaluationModal, setShowEvaluationModal] = useState(false);
+  const [evaluationContent, setEvaluationContent] = useState({
+    title: "",
+    description: "",
+    images: [],
+    tweets: []
+  });
+
+  const evaluationData = {
+    "Veille Technologique": {
+      title: "Veille Technologique",
+      description: "Description for Veille Technologique.",
+      images: [
+        `${import.meta.env.BASE_URL}veille1.png`,
+        `${import.meta.env.BASE_URL}veille2.png`
+      ],
+      tweets: [
+        "https://twitter.com/JournalDuGeek/status/1891065782055928206"
+      ]
+    },
+    "Tableau de synthèse": {
+      title: "Tableau de synthèse",
+      description: "Description for Tableau de synthèse.",
+      images: [
+        `${import.meta.env.BASE_URL}synthese1.png`,
+        `${import.meta.env.BASE_URL}synthese2.png`
+      ],
+      tweets: [
+        "https://twitter.com/JournalDuGeek/status/1891065782055928206"
+      ]
+    },
+    "Stages": {
+      title: "Stages",
+      description: "Description for Stages.",
+      images: [
+        `${import.meta.env.BASE_URL}stages1.png`,
+        `${import.meta.env.BASE_URL}stages2.png`
+      ],
+      tweets: [
+        "https://twitter.com/JournalDuGeek/status/1891065782055928206"
+      ]
+    }
+  };
+
+  const openEvaluationModal = (key: string) => {
+    setEvaluationContent(evaluationData[key]);
+    setShowEvaluationModal(true);
+  };
 
   // Mock user data - in a real app, this would come from your auth system
   const user = {
@@ -217,6 +266,51 @@ const App = memo(() => {
                           />
                         </div>
                       </section>
+                        
+                      {/* Evaluation Section */}
+                      <section id="evalutation" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
+                        <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Veille Technologique, tableau de synthèse et stages</h2>
+                        <p className="mt-2 text-[#fffdf5] select-none">
+                          Epreuve E5
+                        </p>
+                        <div className="mt-8">
+                          <ul className="grid grid-cols-4 gap-4 text-center">
+                            <li className="flex flex-col items-center justify-center">
+                              <button
+                                onClick={() => openEvaluationModal("Veille Technologique")}
+                                className="flex flex-col items-center justify-center"
+                              >
+                                <DiVisualstudio className="h-20 w-20 transition-transform duration-300 transform hover:scale-110 hover:rotate-3" />
+                                <div className="text-[#fffdf5] text-center mt-2">
+                                  Veille Technologique
+                                </div>
+                              </button>
+                            </li>
+                            <li className="flex flex-col items-center justify-center">
+                              <button
+                                onClick={() => openEvaluationModal("Tableau de synthèse")}
+                                className="flex flex-col items-center justify-center"
+                              >
+                                <Table2 className="h-20 w-20 text-[#fffdf5] transition-transform duration-300 transform hover:scale-110 hover:rotate-3" />
+                                <div className="text-[#fffdf5] text-center mt-2">
+                                  Tableau de synthèse
+                                </div>
+                              </button>
+                            </li>
+                            <li className="flex flex-col items-center justify-center">
+                              <button
+                                onClick={() => openEvaluationModal("Stages")}
+                                className="flex flex-col items-center justify-center"
+                              >
+                                <DiVisualstudio className="h-20 w-20 transition-transform duration-300 transform hover:scale-110 hover:rotate-3" />
+                                <div className="text-[#fffdf5] text-center mt-2">
+                                  Stages
+                                </div>
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </section>
 
                       {/* All languages Section */}
                       <section id="all-languages" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
@@ -356,6 +450,11 @@ const App = memo(() => {
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         )}
+        <EvaluationModal
+          isOpen={showEvaluationModal}
+          onClose={() => setShowEvaluationModal(false)}
+          content={evaluationContent}
+        />
       </div>
     </Router>
   );
