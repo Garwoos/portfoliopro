@@ -8,7 +8,7 @@ import BackgroundView from './components/BackgroundView';
 import { AnimatedBackground } from './components/AnimatedBackground';
 import { projects } from './data/projects';
 import { Project } from './types';
-import { Github, Linkedin, Mail, ChevronDown, Mouse, FileText, Table2} from 'lucide-react';
+import { Github, Linkedin, Mail, ChevronDown, Mouse, FileText, Table2, BookText, Briefcase } from 'lucide-react';
 import { DiJavascript1, DiPython, DiHtml5, DiCss3, DiJava, DiPhp, DiMysql, DiVisualstudio, DiReact, DiNodejs } from 'react-icons/di';
 import { SiSpring, SiTypescript } from 'react-icons/si';
 import { FaLaptopCode, FaXTwitter } from "react-icons/fa6"
@@ -42,7 +42,6 @@ const App = memo(() => {
         `${import.meta.env.BASE_URL}veille2.png`
       ],
       tweets: [
-        "https://twitter.com/JournalDuGeek/status/1891065782055928206"
       ]
     },
     "Tableau de synthèse": {
@@ -53,7 +52,6 @@ const App = memo(() => {
         `${import.meta.env.BASE_URL}synthese2.png`
       ],
       tweets: [
-        "https://twitter.com/JournalDuGeek/status/1891065782055928206"
       ]
     },
     "Stages": {
@@ -64,7 +62,6 @@ const App = memo(() => {
         `${import.meta.env.BASE_URL}stages2.png`
       ],
       tweets: [
-        "https://twitter.com/JournalDuGeek/status/1891065782055928206"
       ]
     }
   };
@@ -280,7 +277,7 @@ const App = memo(() => {
                                 onClick={() => openEvaluationModal("Veille Technologique")}
                                 className="flex flex-col items-center justify-center"
                               >
-                                <DiVisualstudio className="h-20 w-20 transition-transform duration-300 transform hover:scale-110 hover:rotate-3" />
+                                <BookText className="h-20 w-20 text-[#fffdf5] transition-transform duration-300 transform hover:scale-110 hover:rotate-3" />
                                 <div className="text-[#fffdf5] text-center mt-2">
                                   Veille Technologique
                                 </div>
@@ -298,15 +295,15 @@ const App = memo(() => {
                               </button>
                             </li>
                             <li className="flex flex-col items-center justify-center">
-                              <button
+                                <button
                                 onClick={() => openEvaluationModal("Stages")}
                                 className="flex flex-col items-center justify-center"
-                              >
-                                <DiVisualstudio className="h-20 w-20 transition-transform duration-300 transform hover:scale-110 hover:rotate-3" />
-                                <div className="text-[#fffdf5] text-center mt-2">
+                                >
+                                <Briefcase className="h-20 w-20 text-[#fffdf5] transition-transform duration-300 transform hover:scale-110 hover:rotate-3" />
+                                <div className="text-[#fffdf5] center mt-2">
                                   Stages
                                 </div>
-                              </button>
+                                </button>
                             </li>
                           </ul>
                         </div>
