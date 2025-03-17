@@ -107,7 +107,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
 
               {/* Modal content */}
               <div className="mt-6">
-                <h2 className="text-4xl font-bold text-[#1e39e5] neon-text drop-shadow-md">
+                <h2 className="text-4xl font-bold text-[#FFFFC8] neon-text drop-shadow-md">
                   {content.title}
                 </h2>
                 <p className="mt-4 text-gray-300 leading-relaxed">{content.description}</p>
@@ -115,7 +115,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                 {/* Display Google Sheets table for "Tableau de synthèse" */}
                 {content.title === "Tableau de synthèse" ? (
                   <section className="mt-6">
-                    <h3 className="text-2xl font-semibold text-[#1e39e5] border-b pb-2 border-[#1e39e5]/50">
+                    <h3 className="text-2xl font-semibold text-[#FFFFC8] border-b pb-2 border-[#FFFFC8]/50">
                       Tableau de synthèse
                     </h3>
                     <div className="mt-3 space-y-2 text-gray-300">
@@ -132,12 +132,12 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                   </section>
                 ) : content.title === "Veille Technologique" ? (
                   <section className="mt-6">
-                    <h3 className="text-2xl font-semibold text-[#1e39e5] border-b pb-2 border-[#1e39e5]/50">
+                    <h3 className="text-2xl font-semibold text-[#FFFFC8] border-b pb-2 border-[#FFFFC8]/50">
                       Veille Technologique
                     </h3>
                     <div className="mt-3 space-y-2 text-gray-300">
                       <section className="mb-12">
-                        <h2 className="text-3xl font-semibold mb-4">Développement et Évolution des Données</h2>
+                        <h2 className="text-3xl font-semibold mb-4 text-[#FFFFC8]">Développement et Évolution des Données</h2>
                         <p className="leading-relaxed">
                           Le développement et l'évolution des données sont des aspects cruciaux dans le domaine de l'informatique. Avec l'augmentation exponentielle des données générées chaque jour, il est essentiel de mettre en place des stratégies efficaces pour gérer, analyser et utiliser ces données de manière optimale.
                         </p>
@@ -146,7 +146,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                         </p>
                       </section>
                       <section className="mb-12">
-                        <h2 className="text-3xl font-semibold mb-4">Utilisation de l'IA</h2>
+                        <h2 className="text-3xl font-semibold mb-4 text-[#FFFFC8]">Utilisation de l'IA</h2>
                         <p className="leading-relaxed">
                           L'intelligence artificielle (IA) joue un rôle de plus en plus important dans l'analyse et l'exploitation des données. Les algorithmes de machine learning et de deep learning permettent de découvrir des modèles cachés dans les données, de prédire des tendances futures et d'automatiser des tâches complexes.
                         </p>
@@ -155,7 +155,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                         </p>
                       </section>
                       <section className="mb-12">
-                        <h2 className="text-3xl font-semibold mb-4">Amélioration Continue</h2>
+                        <h2 className="text-3xl font-semibold mb-4 text-[#FFFFC8]">Amélioration Continue</h2>
                         <p className="leading-relaxed">
                           L'amélioration continue est essentielle pour rester compétitif dans le monde technologique en constante évolution. Cela implique de surveiller les dernières tendances technologiques, d'adopter de nouvelles technologies et de mettre à jour les systèmes existants pour améliorer leur performance et leur efficacité.
                         </p>
@@ -164,13 +164,13 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                         </p>
                       </section>
                       <section className="mb-12">
-                        <h2 className="text-3xl font-semibold mb-4">Conclusion</h2>
+                        <h2 className="text-3xl font-semibold mb-4 text-[#FFFFC8]">Conclusion</h2>
                         <p className="leading-relaxed">
                           En conclusion, le développement et l'évolution des données, l'utilisation de l'IA et l'amélioration continue sont des éléments essentiels pour tirer parti des technologies modernes. En restant à jour avec les dernières tendances et en adoptant des pratiques innovantes, les entreprises peuvent améliorer leur efficacité, offrir de meilleurs services et rester compétitives sur le marché.
                         </p>
                       </section>
                       <section className="mt-6">
-                        <h3 className="text-2xl font-semibold text-[#1e39e5] border-b pb-2 border-[#1e39e5]/50">
+                        <h3 className="text-2xl font-semibold text-[#FFFFC8] border-b pb-2 border-[#FFFFC8]/50">
                           Tweets
                         </h3>
                         <div className="mt-3 space-y-2 text-gray-300">
@@ -195,7 +195,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                   <>
                     {/* Images */}
                     <section className="mt-6">
-                      <h3 className="text-2xl font-semibold text-[#1e39e5] border-b pb-2 border-[#1e39e5]/50">
+                      <h3 className="text-2xl font-semibold text-[#FFFFC8] border-b pb-2 border-[#FFFFC8]/50">
                         Images
                       </h3>
                       <div className="mt-3 space-y-2 text-gray-300">
@@ -214,7 +214,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
 
                     {/* Tweets */}
                     <section className="mt-6">
-                      <h3 className="text-2xl font-semibold text-[#1e39e5] border-b pb-2 border-[#1e39e5]/50">
+                      <h3 className="text-2xl font-semibold text-[#FFFFC8] border-b pb-2 border-[#FFFFC8]/50">
                         Tweets
                       </h3>
                       <div className="mt-3 space-y-2 text-gray-300">

@@ -77,7 +77,7 @@ const ProjectModalComponent = ({ project, isOpen, onClose }: ProjectModalProps) 
 
               {/* Contenu du modal */}
               <div className="mt-6">
-                <h2 className="text-4xl font-bold text-[#1e39e5] neon-text drop-shadow-md">
+                <h2 className="text-4xl font-bold text-[#FFFFC8] neon-text drop-shadow-md">
                   {project.titre}
                 </h2>
                 <p className="mt-4 text-gray-300 leading-relaxed">{project.description}</p>
@@ -85,19 +85,19 @@ const ProjectModalComponent = ({ project, isOpen, onClose }: ProjectModalProps) 
                 {/* Sections dynamiques */}
                 {["Défi", "Solution", "Objectif"].map((key) => (
                   <p key={key} className="mt-2 text-gray-300">
-                    <strong className="text-[#1e39e5]">{key}:</strong> {project[key.toLowerCase()]}
+                    <strong className="text-[#FFFFC8]">{key}:</strong> {project[key.toLowerCase()]}
                   </p>
                 ))}
 
                 {/* Fonctionnalités */}
                 <section className="mt-6">
-                  <h3 className="text-2xl font-semibold text-[#1e39e5] border-b pb-2 border-[#1e39e5]/50">
+                  <h3 className="text-2xl font-semibold text-[#FFFFC8] border-b pb-2 border-[#FFFFC8]/50">
                     Fonctionnalités 🔥
                   </h3>
                   <ul className="mt-3 space-y-2 text-gray-300">
                     {Object.entries(project.fonctionnalités).map(([key, value]) => (
                       <li key={key}>
-                        <h4 className="text-lg font-semibold text-[#1e39e5] mt-2">{key} :</h4>
+                        <h4 className="text-lg font-semibold text-[#FFFFC8] mt-2">{key} :</h4>
                         {value.map((item: string, index: number) => (
                           <p key={index} className="flex items-center gap-2">
                             🔹 {item}
@@ -110,7 +110,7 @@ const ProjectModalComponent = ({ project, isOpen, onClose }: ProjectModalProps) 
 
                 {/* Technologies */}
                 <p className="mt-6 text-lg text-gray-300">
-                  <strong className="text-[#1e39e5]">Technologies:</strong> {project.technologies.join(', ')}
+                  <strong className="text-[#FFFFC8]">Technologies:</strong> {project.technologies.join(', ')}
                 </p>
 
                 {/* Boutons d'actions */}

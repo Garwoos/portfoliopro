@@ -225,10 +225,10 @@ const App = memo(() => {
                       {/* Hero Section */}
                       <section className="relative pt-8 mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 
                         bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16 mt-20">
-                        <h1 className="text-5xl font-extrabold text-[#fffdf5] sm:text-6xl lg:text-7xl select-none leading-tight">
+                        <h1 className="text-5xl font-extrabold text-[#FFFFC8] sm:text-6xl lg:text-7xl select-none leading-tight">
                           {user.name}
                         </h1>
-                        <h2 className="text-3xl text-[#fffdf5] sm:text-4xl lg:text-5xl font-semibold mt-2 select-none">
+                        <h2 className="text-3xl text-[#FFFFC8] sm:text-4xl lg:text-5xl font-semibold mt-2 select-none">
                           Développeur web/app
                         </h2>
                         <p className="mt-6 w-full text-lg text-[#fffdf5] select-none whitespace-pre-line text-justify leading-relaxed">
@@ -238,7 +238,7 @@ const App = memo(() => {
 
                       {/* Projects Section */}
                       <section id="projects" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
-                        <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Projets Informatiques</h2>
+                        <h2 className="text-3xl font-bold text-[#FFFFC8] select-none">Projets Informatiques</h2>
                         <p className="mt-2 text-[#fffdf5] select-none">
                           Voici quelques projets que j'ai réalisés dans le cadre de mes études et expériences professionnelles.
                         </p>
@@ -252,7 +252,7 @@ const App = memo(() => {
 
                       {/* All Projects Section */}
                       <section id="all-projects" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
-                        <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Tous les Projets</h2>
+                        <h2 className="text-3xl font-bold text-[#FFFFC8] select-none">Tous les Projets</h2>
                         <p className="mt-2 text-[#fffdf5] select-none">
                           Voici une liste de tous les projets que j'ai réalisés.
                         </p>
@@ -266,7 +266,7 @@ const App = memo(() => {
                         
                       {/* Evaluation Section */}
                       <section id="evalutation" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
-                        <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Veille Technologique, tableau de synthèse et stages</h2>
+                        <h2 className="text-3xl font-bold text-[#FFFFC8] select-none">Veille Technologique, tableau de synthèse et stages</h2>
                         <p className="mt-2 text-[#fffdf5] select-none">
                           Epreuve E5
                         </p>
@@ -311,7 +311,7 @@ const App = memo(() => {
 
                       {/* All languages Section */}
                       <section id="all-languages" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
-                        <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Langages de programmation</h2>
+                        <h2 className="text-3xl font-bold text-[#FFFFC8] select-none">Langages de programmation</h2>
                         <p className="mt-2 text-[#fffdf5] select-none">
                           Voici une liste des langages de programmation que je maîtrise.
                         </p>
@@ -338,7 +338,7 @@ const App = memo(() => {
                         Voici une liste des technologies que j'ai utilisées pour mes projets.
                         </p>
                         <div className="mt-8">
-                        <h3 className="text-2xl font-semibold text-[#fffdf5] select-none">Frameworks</h3>
+                        <h3 className="text-2xl font-semibold text-[#FFFFC8] select-none">Frameworks</h3>
                         <ul className="grid grid-cols-4 gap-4 text-center mt-4">
                         {Object.entries(technologiesIcons).filter(([name]) => user.Technologies.includes(`${name}{FrameWork}`)).map(([name, icon]) => {
                           const color = user.Technologies.split(', ').find(tech => tech.includes(name))?.split('{')[2]?.replace('}', '').trim() || '#fffdf5';
@@ -354,7 +354,7 @@ const App = memo(() => {
                           );
                         })}
                         </ul>
-                        <h3 className="text-2xl font-semibold text-[#fffdf5] select-none mt-8">Logiciels</h3>
+                        <h3 className="text-2xl font-semibold text-[#FFFFC8] select-none mt-8">Logiciels</h3>
                         <ul className="grid grid-cols-4 gap-4 text-center mt-4">
                         {Object.entries(technologiesIcons).filter(([name]) => user.Technologies.includes(`${name}{Logiciel}`)).map(([name, icon]) => {
                           const color = user.Technologies.split(', ').find(tech => tech.includes(name))?.split('{')[2]?.replace('}', '').trim() || '#fffdf5';
@@ -376,7 +376,7 @@ const App = memo(() => {
 
                       {/* Contact Section */}
                       <section id="contact" className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#0f172a]/80 border border-[#1e39e5] rounded-xl shadow-lg mb-16">
-                        <h2 className="text-3xl font-bold text-[#fffdf5] select-none">Contact</h2>
+                        <h2 className="text-3xl font-bold text-[#FFFFC8] select-none">Contact</h2>
                         <p className="mt-2 text-[#fffdf5] select-none">
                           N'hésitez pas à me contacter pour toute opportunité ou collaboration !
                         </p>

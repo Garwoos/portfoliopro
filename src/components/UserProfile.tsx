@@ -41,13 +41,13 @@ export function UserProfile({ user }: UserProfileProps) {
 
         {/* User Info */}
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-[#fffdf5]">{user.name}</h1>
-          <p className="text-[#fffdf5]">{user.title}</p>
+          <h1 className="text-2xl font-bold text-[#FFFFC8]">{user.name}</h1>
+          <p className="text-[#FFFFC8]">{user.title}</p>
         </div>
 
         {/* Biography Section */}
         {user.bio && (
-          <div className="mt-4 text-center text-[#fffdf5]">
+          <div className="mt-4 text-center text-[#FFFFC8]">
             <p>{user.bio}</p>
           </div>
         )}
@@ -56,12 +56,12 @@ export function UserProfile({ user }: UserProfileProps) {
         <div className="mt-4 space-y-2 text-[#fffdf5]">
           {user.location && (
             <p className="flex items-center gap-2">
-              <MapPin className="h-5 w-5 text-[#fffdf5]" /> {user.location}
+              <MapPin className="h-5 w-5 text-[#FFFFC8]" /> {user.location}
             </p>
           )}
           {user.languages && (
             <p className="flex items-center gap-2">
-              <Globe className="h-5 w-5 text-[#fffdf5]" /> {user.languages}
+              <Globe className="h-5 w-5 text-[#FFFFC8]" /> {user.languages}
             </p>
           )}
         </div>
