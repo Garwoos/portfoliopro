@@ -18,7 +18,7 @@ export const ProjectGrid = memo(({ projects, onProjectClick }: ProjectGridProps)
           <img
             src={project.image}
             alt={project.title}
-            className="h-full w-full object-cover rounded-lg transition-opacity duration-300 hover:opacity-90"
+            className="h-full w-full object-contain rounded-lg transition-opacity duration-300 hover:opacity-90"
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent rounded-lg transition-opacity duration-300 hover:opacity-80" />
