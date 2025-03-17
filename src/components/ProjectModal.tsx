@@ -70,7 +70,7 @@ const ProjectModalComponent = ({ project, isOpen, onClose }: ProjectModalProps) 
                 <img
                   src={project.image}
                   alt={project.titre}
-                  className="h-full w-full object-cover transition-transform transform hover:scale-105 duration-300"
+                  className="h-full w-full object-contain transition-transform transform hover:scale-105 duration-300"
                   loading="lazy" // Utiliser lazy loading pour les images
                 />
               </div>

@@ -29,7 +29,7 @@ export const ProjectList = memo(({ projects, onProjectClick }: ProjectListProps)
         <img
           src={projects[currentIndex].image}
           alt={projects[currentIndex].title}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain"
           loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1e39e5]/80 to-transparent" />
