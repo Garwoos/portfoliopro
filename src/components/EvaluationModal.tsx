@@ -1,7 +1,7 @@
 import React, { memo, useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
-import { TwitterTimelineEmbed, TwitterTweetEmbed } from 'react-twitter-embed';
+import { TwitterTweetEmbed } from 'react-twitter-embed';
 import '../styles/neon.css';
 
 interface EvaluationModalProps {
@@ -27,7 +27,6 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
   const [imageLoaded, setImageLoaded] = useState(false);
   const imageRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-  const [cachedTweets, setCachedTweets] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isOpen) {
@@ -41,26 +40,6 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
       imageRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [isImageOpen]);
-
-  useEffect(() => {
-    if (isOpen && !cachedTweets) {
-      fetchTweets();
-    }
-  }, [isOpen, cachedTweets]);
-
-  const fetchTweets = async () => {
-    try {
-      const response = await fetch('https://api.twitter.com/2/tweets?ids=YOUR_TWEET_IDS', {
-        headers: {
-          'Authorization': `Bearer YOUR_BEARER_TOKEN`
-        }
-      });
-      const data = await response.json();
-      setCachedTweets(JSON.stringify(data));
-    } catch (error) {
-      console.error('Error fetching tweets:', error);
-    }
-  };
 
   const handleMouseEnter = () => {
     document.body.style.overflow = 'hidden';
@@ -120,7 +99,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                 {/* Display Google Sheets table for "Tableau de synthèse" */}
                 {content.title === "Tableau de synthèse" ? (
                   <section className="mt-6">
-                    <h3 className="text-2xl font-semibold text-[#FFFFC8] border-b pb-2 border-[#FFFFC8]/50">
+                    <h3 className="text-2xl font-semibold text-[#FFFFC8] neon-text border-b pb-2 border-[#FFFFC8]/50">
                       Tableau de synthèse
                     </h3>
                     <div className="mt-3 space-y-2 text-gray-300">
@@ -137,12 +116,12 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                   </section>
                 ) : content.title === "Veille Technologique" ? (
                   <section className="mt-6">
-                    <h3 className="text-2xl font-semibold text-[#FFFFC8] border-b pb-2 border-[#FFFFC8]/50">
+                    <h3 className="text-2xl font-semibold text-[#FFFFC8] neon-text border-b pb-2 border-[#FFFFC8]/50">
                       Veille Technologique
                     </h3>
                     <div className="mt-3 space-y-2 text-gray-300">
                       <section className="mb-12">
-                        <h2 className="text-3xl font-semibold mb-4 text-[#FFFFC8]">Développement et Évolution des Données</h2>
+                        <h2 className="text-3xl font-semibold mb-4">Développement et Évolution des Données</h2>
                         <p className="leading-relaxed">
                           Avec l'augmentation exponentielle des données générées quotidiennement, il est essentiel de mettre en place des stratégies efficaces pour leur gestion et leur analyse. Selon les estimations, le volume annuel de données numériques générées dans le monde pourrait atteindre 181 zettaoctets d'ici 2025. Les technologies de Big Data et les bases de données NoSQL ont transformé le stockage et le traitement des données, permettant de gérer des volumes massifs et d'effectuer des analyses en temps réel, offrant ainsi des insights précieux aux entreprises.
                         </p>
@@ -151,7 +130,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                         </p>
                       </section>
                       <section className="mb-12">
-                        <h2 className="text-3xl font-semibold mb-4 text-[#FFFFC8]">Utilisation de l'IA</h2>
+                        <h2 className="text-3xl font-semibold mb-4">Utilisation de l'Intelligence Artificielle (IA)</h2>
                         <p className="leading-relaxed">
                           L'IA joue un rôle croissant dans l'exploitation des données. Les algorithmes d'apprentissage automatique et d'apprentissage profond permettent de découvrir des modèles cachés, de prédire des tendances et d'automatiser des tâches complexes. Par exemple, dans le domaine de la santé, l'IA est utilisée pour affiner les diagnostics médicaux et détecter des pathologies, améliorant ainsi la qualité des soins. Dans le secteur du marketing, l'IA personnalise les campagnes publicitaires en fonction des comportements des utilisateurs, augmentant ainsi l'efficacité des stratégies marketing.
                         </p>
@@ -178,19 +157,19 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                         </p>
                       </section>
                       <section className="mb-12">
-                        <h2 className="text-3xl font-semibold mb-4 text-[#FFFFC8]">Amélioration Continue</h2>
+                        <h2 className="text-3xl font-semibold mb-4">Amélioration Continue</h2>
                         <p className="leading-relaxed">
                           Pour rester compétitives, les entreprises doivent surveiller les tendances technologiques, adopter de nouvelles technologies et mettre à jour leurs systèmes pour améliorer performance et efficacité. Les pratiques de DevOps, combinant développement logiciel et opérations informatiques, jouent un rôle clé en permettant des déploiements plus rapides et fiables, tout en assurant une collaboration étroite entre les équipes.
                         </p>
                       </section>
                       <section className="mb-12">
-                        <h2 className="text-3xl font-semibold mb-4 text-[#FFFFC8]">Conclusion</h2>
+                        <h2 className="text-3xl font-semibold mb-4">Conclusion</h2>
                         <p className="leading-relaxed">
                           En somme, le développement et l'évolution des données, l'utilisation de l'IA et l'amélioration continue sont essentiels pour tirer parti des technologies modernes. En restant informées des dernières tendances et en adoptant des pratiques innovantes, les entreprises peuvent améliorer leur efficacité, offrir de meilleurs services et maintenir leur compétitivité sur le marché.
                         </p>
                       </section>
                       <section className="mt-6">
-                        <h3 className="text-2xl font-semibold text-[#FFFFC8] border-b pb-2 border-[#FFFFC8]/50">
+                        <h3 className="text-2xl font-semibold text-[#FFFFC8] neon-text border-b pb-2 border-[#FFFFC8]/50">
                           Tweets
                         </h3>
                         <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-300">                        {tweetIds.map((tweetId, index) => (
@@ -202,12 +181,12 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                   </section>
                 ) : content.title === "Stages" ? (
                   <section className="mt-6">
-                    <h3 className="text-2xl font-semibold text-[#1e39e5] border-b pb-2 border-[#1e39e5]/50">
+                    <h3 className="text-2xl font-semibold text-[#FFFFC8] neon-text border-b pb-2 border-[#FFFFC8]/50">
                       Rapport de Stage chez Alias Informatique
                     </h3>
                     <div className="mt-3 space-y-2 text-gray-300">
                       <section className="mb-12">
-                        <h2 className="text-3xl font-semibold mb-4">Première Partie : Découverte du Secteur Réseau</h2>
+                        <h2 className="text-3xl font-semibold text-[#FFFFC8] mb-4">Première Partie : Découverte du Secteur Réseau</h2>
                         <p className="leading-relaxed">
                           Durant les deux premières semaines, j'ai rejoint l'équipe réseau d'Alias Informatique. J'ai accompagné les employés sur le terrain, notamment dans des écoles et des entreprises, afin de comprendre le fonctionnement des infrastructures réseaux. Cette immersion m'a permis d'observer :
                         </p>
@@ -221,7 +200,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                         </p>
                       </section>
                       <section className="mb-12">
-                        <h2 className="text-3xl font-semibold mb-4">Deuxième Partie : Expérience en Développement Informatique</h2>
+                        <h2 className="text-3xl font-semibold text-[#FFFFC8] mb-4">Deuxième Partie : Expérience en Développement Informatique</h2>
                         <p className="leading-relaxed">
                           Après cette première immersion, j'ai rejoint le pôle développement de l'entreprise pour tester mes compétences en Windev. Pour évaluer mes capacités, on m'a confié le développement d'une application permettant de recueillir des avis et de réaliser des sondages. Ce projet m'a permis de mettre en pratique mes compétences en :
                         </p>
@@ -233,7 +212,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-300">
                           <div className="aspect-video w-full overflow-hidden rounded-lg border border-[#1e39e5] border-opacity-50 shadow-md">
                             <img
-                              src={`${import.meta.env.BASE_URL}alias/reponses.png`}
+                              src={`${import.meta.env.BASE_URL}reponses.png`}
                               alt="Réponses"
                               className="h-full w-full object-contain transition-transform transform hover:scale-105 duration-300"
                               loading="lazy"
@@ -241,7 +220,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                           </div>
                           <div className="aspect-video w-full overflow-hidden rounded-lg border border-[#1e39e5] border-opacity-50 shadow-md">
                             <img
-                              src={`${import.meta.env.BASE_URL}alias/sondage.png`}
+                              src={`${import.meta.env.BASE_URL}sondage.png`}
                               alt="Sondage"
                               className="h-full w-full object-contain transition-transform transform hover:scale-105 duration-300"
                               loading="lazy"
@@ -249,7 +228,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                           </div>
                           <div className="aspect-video w-full overflow-hidden rounded-lg border border-[#1e39e5] border-opacity-50 shadow-md">
                             <img
-                              src={`${import.meta.env.BASE_URL}alias/sondage2.png`}
+                              src={`${import.meta.env.BASE_URL}sondage2.png`}
                               alt="Sondage 2"
                               className="h-full w-full object-contain transition-transform transform hover:scale-105 duration-300"
                               loading="lazy"
@@ -257,7 +236,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                           </div>
                           <div className="aspect-video w-full overflow-hidden rounded-lg border border-[#1e39e5] border-opacity-50 shadow-md">
                             <img
-                              src={`${import.meta.env.BASE_URL}alias/sondage3.png`}
+                              src={`${import.meta.env.BASE_URL}sondage3.png`}
                               alt="Sondage 3"
                               className="h-full w-full object-contain transition-transform transform hover:scale-105 duration-300"
                               loading="lazy"
@@ -269,7 +248,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                         </p>
                       </section>
                       <section className="mb-12">
-                        <h2 className="text-3xl font-semibold mb-4">Mission Principale : Développement d'un Afficheur de Tickets</h2>
+                        <h2 className="text-3xl font-semibold text-[#FFFFC8] mb-4">Mission Principale : Développement d'un Afficheur de Tickets</h2>
                         <p className="leading-relaxed">
                           L'objectif était de créer une application permettant d'afficher les tickets en cours ou non terminés. Les principales fonctionnalités que j'ai développées sont :
                         </p>
@@ -282,7 +261,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-300">
                           <div className="aspect-video w-full overflow-hidden rounded-lg border border-[#1e39e5] border-opacity-50 shadow-md">
                             <img
-                              src={`${import.meta.env.BASE_URL}alias/afficheur.png`}
+                              src={`${import.meta.env.BASE_URL}afficheur.png`}
                               alt="Afficheur de Tickets"
                               className="h-full w-full object-contain transition-transform transform hover:scale-105 duration-300"
                               loading="lazy"
@@ -290,7 +269,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                           </div>
                           <div className="aspect-video w-full overflow-hidden rounded-lg border border-[#1e39e5] border-opacity-50 shadow-md">
                             <img
-                              src={`${import.meta.env.BASE_URL}alias/menu.png`}
+                              src={`${import.meta.env.BASE_URL}menu.png`}
                               alt="menu"
                               className="h-full w-full object-contain transition-transform transform hover:scale-105 duration-300"
                               loading="lazy"
@@ -299,7 +278,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                         </div>
                       </section>
                       <section className="mb-12">
-                        <h2 className="text-3xl font-semibold mb-4">Conclusion</h2>
+                        <h2 className="text-3xl font-semibold text-[#FFFFC8] mb-4">Conclusion</h2>
                         <p className="leading-relaxed">
                           Ce stage chez Alias Informatique m'a permis d'acquérir des compétences solides aussi bien en réseau qu'en développement. La combinaison de l'observation sur le terrain et de la mise en pratique m'a offert une expérience enrichissante et formatrice. La réalisation de l'afficheur de tickets a été un challenge stimulant qui m'a permis d'améliorer mes compétences en Windev et de mieux comprendre les besoins fonctionnels d'une entreprise informatique.
                         </p>
@@ -313,7 +292,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                   <>
                     {/* Images */}
                     <section className="mt-6">
-                      <h3 className="text-2xl font-semibold text-[#FFFFC8] border-b pb-2 border-[#FFFFC8]/50">
+                      <h3 className="text-2xl font-semibold text-[#FFFFC8] neon-text border-b pb-2 border-[#FFFFC8]/50">
                         Images
                       </h3>
                       <div className="mt-3 space-y-2 text-gray-300">
@@ -329,47 +308,30 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                         ))}
                       </div>
                     </section>
-
-                    {/* Tweets */}
-                    <section className="mt-6">
-                      <h3 className="text-2xl font-semibold text-[#FFFFC8] border-b pb-2 border-[#FFFFC8]/50">
-                        Tweets
-                      </h3>
-                      <div className="mt-3 space-y-2 text-gray-300">
-                        {cachedTweets ? (
-                          <TwitterTimelineEmbed
-                            sourceType="profile"
-                            screenName="DevSoow"
-                            options={{ height: 400 }}
-                            noHeader
-                            noFooter
-                            noBorders
-                            showRetweets
-                          />
-                        ) : (
-                          <p>Loading tweets...</p>
-                        )}
-                      </div>
-                    </section>
                   </>
                 )}
               </div>
               <section className="mt-6">
-                <h3 className="text-2xl font-semibold text-[#1e39e5] border-b pb-2 border-[#1e39e5]/50">
+                <h3 className="text-2xl font-semibold text-[#FFFFC8] neon-text border-b pb-2 border-[#FFFFC8]/50">
                   Rapport de Stage chez Star-Alarm
                 </h3>
                 <div className="mt-3 space-y-2 text-gray-300">
                   <section className="mb-12">
-                    <h2 className="text-3xl font-semibold mb-4">Introduction</h2>
+                    <h2 className="text-3xl font-semibold text-[#FFFFC8] mb-4">Introduction</h2>
                     <p className="leading-relaxed">
                       Durant mon stage chez Star-Alarm, j’ai travaillé en binôme sur le développement d’une application web sous NodeJS et ReactJS. Ce projet avait pour objectif de proposer un service en ligne permettant de configurer des plans et des systèmes d’alarmes avec un système d’authentification et de parrainage.
                     </p>
                     <p className="mt-4">
-                      <img src="path/to/presentation-image.jpg" alt="Présentation de l'application" className="w-full rounded-lg border border-[#1e39e5] border-opacity-50 shadow-md" />
+                    <img
+                      src={`${import.meta.env.BASE_URL}StartAlarm.png`}
+                      alt="StartAlarm"
+                      className="h-full w-full object-contain transition-transform transform hover:scale-105 duration-300"
+                      loading="lazy"
+                      />
                     </p>
                   </section>
                   <section className="mb-12">
-                    <h2 className="text-3xl font-semibold mb-4">Présentation du Projet</h2>
+                    <h2 className="text-3xl font-semibold text-[#FFFFC8] mb-4">Présentation du Projet</h2>
                     <p className="leading-relaxed">
                       L’application avait pour but de faciliter la configuration et l’installation de systèmes de sécurité en ligne. Grâce à une interface intuitive développée sous ReactJS, les utilisateurs pouvaient concevoir un plan de leur domicile ou entreprise et y intégrer différents types d’alarmes.
                     </p>
@@ -380,11 +342,16 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                       <li>Système de parrainage pour recommander le service</li>
                     </ul>
                     <p className="mt-4">
-                      <img src="path/to/interface-image.jpg" alt="Interface utilisateur" className="w-full rounded-lg border border-[#1e39e5] border-opacity-50 shadow-md" />
+                    <img
+                      src={`${import.meta.env.BASE_URL}simulateur.png`}
+                      alt="Simulateur"
+                      className="h-full w-full object-contain transition-transform transform hover:scale-105 duration-300"
+                      loading="lazy"
+                      />
                     </p>
                   </section>
                   <section className="mb-12">
-                    <h2 className="text-3xl font-semibold mb-4">Technologies Utilisées</h2>
+                    <h2 className="text-3xl font-semibold text-[#FFFFC8] mb-4">Technologies Utilisées</h2>
                     <p className="leading-relaxed">
                       Pour développer cette application, nous avons utilisé les technologies suivantes :
                     </p>
@@ -397,7 +364,7 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                     </ul>
                   </section>
                   <section className="mb-12">
-                    <h2 className="text-3xl font-semibold mb-4">Mon Rôle dans le Projet</h2>
+                    <h2 className="text-3xl font-semibold text-[#FFFFC8] mb-4">Mon Rôle dans le Projet</h2>
                     <p className="leading-relaxed">
                       J’ai principalement travaillé sur :
                     </p>
@@ -407,11 +374,16 @@ const EvaluationModalComponent = ({ isOpen, onClose, content }: EvaluationModalP
                       <li>Le simulateur, développé en ReactJS et Canvas, utilisant des formules mathématiques pour gérer les angles, vecteurs et interactions des composants graphiques.</li>
                     </ul>
                     <p className="mt-4">
-                      <img src="path/to/architecture-image.jpg" alt="Architecture technique" className="w-full rounded-lg border border-[#1e39e5] border-opacity-50 shadow-md" />
+                    <img
+                      src={`${import.meta.env.BASE_URL}pourcentage.png`}
+                      alt="Pourcentage"
+                      className="h-full w-full object-contain transition-transform transform hover:scale-105 duration-300"
+                      loading="lazy"
+                      />
                     </p>
                   </section>
                   <section className="mb-12">
-                    <h2 className="text-3xl font-semibold mb-4">Bilan et Conclusion</h2>
+                    <h2 className="text-3xl font-semibold text-[#FFFFC8] mb-4">Bilan et Conclusion</h2>
                     <p className="leading-relaxed">
                       Ce stage chez Star-Alarm a été une expérience enrichissante qui m’a permis d’approfondir mes compétences en développement web fullstack. Travailler en binôme sur un projet concret m’a appris l’importance de la collaboration, de la gestion de projet et de l’optimisation du code.
                     </p>

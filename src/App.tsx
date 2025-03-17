@@ -428,7 +428,7 @@ const App = memo(() => {
                             <a href={user.resume} target="_blank" rel="noopener noreferrer" className="text-[#FF0010]">
                               <FileText className="h-6 w-6" />
                             </a>
-                            <span>{user.email}</span>
+                            <span>Curriculum Vitae</span>
                           </a>
                           )}
                         </div>
